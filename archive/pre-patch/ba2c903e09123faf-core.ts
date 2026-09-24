@@ -50,7 +50,7 @@ namespace LT {
       for(const id of state.active){const h=hero(state,id),st=stats(h);this.actors.push({key:`h${id}`,team:'hero',heroId:id,enemyId:'',name:HEROES[id].name,level:h.level,hp:h.hp,maxhp:st.hp,mp:h.mp,maxmp:st.mp,atk:st.atk,mag:st.mag,def:st.def,speed:st.speed,focus:0,guard:0,maxguard:0,weak:[],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false,recovering:false});}
       const level=Math.max(1,1+state.bells.length*2);
       const diff=state.settings.difficulty==='story'?.72:state.settings.difficulty==='hard'?1.2:1;
-      ids.forEach((id,i)=>{const d=enemyById(id);if(!d)throw new Error('Unknown enemy '+id);const boss=d.boss;const partyScale=boss?Math.max(.65,state.active.length*.63):1;const hp=Math.round((boss?160+level*32:48+d.variant*11+level*17)*partyScale*diff*(d.elite?1.2:1)*(boss?(2.1+level*.18)*1.36:(1.45+level*.16)*1.55));this.actors.push({key:`e${i}`,team:'enemy',heroId:-1,enemyId:id,name:d.name,level,hp,maxhp:hp,mp:999,maxmp:999,atk:Math.round((boss?15+level*3.3:11+level*2.9+d.variant)*diff*(boss?1.32:1.14)),mag:Math.round((boss?17+level*3.4:10+level*3)*diff),def:7+level*2,speed:10+level*.65+d.variant,focus:0,guard:d.guard,maxguard:d.guard,weak:[...d.weak],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false,recovering:false});const seen=state.bestiary[id]||(state.bestiary[id]={seen:0,kills:0,weak:[]});seen.seen++;});
+      ids.forEach((id,i)=>{const d=enemyById(id);if(!d)throw new Error('Unknown enemy '+id);const boss=d.boss;const partyScale=boss?Math.max(.65,state.active.length*.63):1;const hp=Math.round((boss?160+level*32:48+d.variant*11+level*17)*partyScale*diff*(d.elite?1.2:1)*(boss?2.1+level*.18:1.45+level*.16));this.actors.push({key:`e${i}`,team:'enemy',heroId:-1,enemyId:id,name:d.name,level,hp,maxhp:hp,mp:999,maxmp:999,atk:Math.round((boss?15+level*3.3:11+level*2.9+d.variant)*diff),mag:Math.round((boss?17+level*3.4:10+level*3)*diff),def:7+level*2,speed:10+level*.65+d.variant,focus:0,guard:d.guard,maxguard:d.guard,weak:[...d.weak],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false,recovering:false});const seen=state.bestiary[id]||(state.bestiary[id]={seen:0,kills:0,weak:[]});seen.seen++;});
       this.line('察看弱点，积蓄涌势。在破绽出现时一击决定胜负。');this.next();
     }
     actor(key=this.current):Actor|undefined{return this.actors.find(a=>a.key===key);}
@@ -120,7 +120,7 @@ namespace LT {
       if(d.boss&&this.round%3===0&&!a.charged){a.charged=true;this.line(a.name+'开始蓄潮！尽快破势，或让全员防御。');this.event('status',a,a,0,'蓄潮');this.next();return true;}
       const alive=this.living('hero');if(!alive.length){this.phase='lost';return false;}
       if(d.boss&&a.phase===2&&this.round%2===0){
-        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.015);this.line(a.name+'修复了外壳，获得短暂护盾。');}
+        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.035);this.line(a.name+'修复了外壳，获得短暂护盾。');}
         else if(d.family===2){a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+1)%8]);this.line('镜面折转，弱点再次改变。');}
         else if(d.family===3||d.family===5){const n=Math.round(a.maxhp*.025);a.hp=Math.min(a.maxhp,a.hp+n);this.event('heal',a,a,n,'汲忆');}
         else if(d.family===4){alive.forEach(t=>t.focus=Math.max(0,t.focus-1));this.line('裂面吸走了每位旅人 1 点涌势。');}

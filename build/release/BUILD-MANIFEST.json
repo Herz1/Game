@@ -2,9 +2,9 @@
   "title": "灯潮 · 第八座灯塔",
   "version": 2,
   "format": "one self-contained HTML",
-  "html_sha256": "a117ef7f89132fd171ec97f39941ddc5a314f45d5f7e16f2c15b6f479cff69da",
-  "html_bytes": 255976,
-  "runtime_sha256": "96b7f24f66ef9917f1f1c751191cd1499d5bc0094d75204ab0a2d1de990d5564",
+  "html_sha256": "bc5631fbe24e9f32a9809708f8c3a6975acb31efa1c8bf31c303b2922b7506d7",
+  "html_bytes": 259586,
+  "runtime_sha256": "fbb3f203a7b25559d714162e11a2db5cceaec9a242050ec06066440e756d98a7",
   "assets": [],
   "content_counts": {
     "heroes": 8,

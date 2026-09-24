@@ -257,7 +257,7 @@ var LT;
             const level = Math.max(1, 1 + state.bells.length * 2);
             const diff = state.settings.difficulty === 'story' ? .72 : state.settings.difficulty === 'hard' ? 1.2 : 1;
             ids.forEach((id, i) => { const d = LT.enemyById(id); if (!d)
-                throw new Error('Unknown enemy ' + id); const boss = d.boss; const partyScale = boss ? Math.max(.65, state.active.length * .63) : 1; const hp = Math.round((boss ? 160 + level * 32 : 48 + d.variant * 11 + level * 17) * partyScale * diff * (d.elite ? 1.2 : 1) * (boss ? 2.1 + level * .18 : 1.45 + level * .16)); this.actors.push({ key: `e${i}`, team: 'enemy', heroId: -1, enemyId: id, name: d.name, level, hp, maxhp: hp, mp: 999, maxmp: 999, atk: Math.round((boss ? 15 + level * 3.3 : 11 + level * 2.9 + d.variant) * diff), mag: Math.round((boss ? 17 + level * 3.4 : 10 + level * 3) * diff), def: 7 + level * 2, speed: 10 + level * .65 + d.variant, focus: 0, guard: d.guard, maxguard: d.guard, weak: [...d.weak], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false, recovering: false }); const seen = state.bestiary[id] || (state.bestiary[id] = { seen: 0, kills: 0, weak: [] }); seen.seen++; });
+                throw new Error('Unknown enemy ' + id); const boss = d.boss; const partyScale = boss ? Math.max(.65, state.active.length * .63) : 1; const hp = Math.round((boss ? 160 + level * 32 : 48 + d.variant * 11 + level * 17) * partyScale * diff * (d.elite ? 1.2 : 1) * (boss ? (2.1 + level * .18) * 1.36 : (1.45 + level * .16) * 1.55)); this.actors.push({ key: `e${i}`, team: 'enemy', heroId: -1, enemyId: id, name: d.name, level, hp, maxhp: hp, mp: 999, maxmp: 999, atk: Math.round((boss ? 15 + level * 3.3 : 11 + level * 2.9 + d.variant) * diff * (boss ? 1.32 : 1.14)), mag: Math.round((boss ? 17 + level * 3.4 : 10 + level * 3) * diff), def: 7 + level * 2, speed: 10 + level * .65 + d.variant, focus: 0, guard: d.guard, maxguard: d.guard, weak: [...d.weak], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false, recovering: false }); const seen = state.bestiary[id] || (state.bestiary[id] = { seen: 0, kills: 0, weak: [] }); seen.seen++; });
             this.line('察看弱点，积蓄涌势。在破绽出现时一击决定胜负。');
             this.next();
         }
@@ -522,7 +522,7 @@ var LT;
             }
             if (d.boss && a.phase === 2 && this.round % 2 === 0) {
                 if (d.family === 0 || d.family === 1) {
-                    a.barrier = Math.round(a.maxhp * .035);
+                    a.barrier = Math.round(a.maxhp * .015);
                     this.line(a.name + '修复了外壳，获得短暂护盾。');
                 }
                 else if (d.family === 2) {
@@ -1302,7 +1302,8 @@ var LT;
             this.world = null;
             this.camX = 0;
             this.camY = 0;
-            this.zoom = 1.35;
+            this.zoom = 1.1;
+            this.propCache = new Map();
             this.time = 0;
             this.effects = [];
             this.shake = 0;
@@ -1321,7 +1322,8 @@ var LT;
         iso(x, y, z = 0) { return { x: (x - y) * 36, y: (x + y) * 18 - z }; }
         screen(x, y, z = 0) { const p = this.iso(x, y, z); return { x: 640 + (p.x - this.camX) * this.zoom, y: 380 + (p.y - this.camY) * this.zoom }; }
         unproject(x, y) { const u = (x - 640) / this.zoom + this.camX, v = (y - 380) / this.zoom + this.camY; return { x: u / 72 + v / 36, y: v / 36 - u / 72 }; }
-        load(world, s) { this.world = world; const p = this.iso(s.x, s.y); this.camX = p.x; this.camY = p.y; this.ground = this.makeGround(world); }
+        load(world, s) { this.world = world; this.zoom = world.area === 'inn' || world.area === 'shop' ? 1.35 : 1.1; if (this.propCache.size > 100)
+            this.propCache.clear(); const p = this.iso(s.x, s.y); this.camX = p.x; this.camY = p.y; this.ground = this.makeGround(world); }
         makeGround(w) {
             const c = C(2400, 1350), g = c.getContext('2d'), r = Math.min(w.region, 7), p = LT.REGIONS[r].palette, rng = new LT.RNG(w.region * 141 + 7), interior = ['inn', 'shop', 'dungeon', 'final'].includes(w.area);
             for (let y = 0; y < w.height; y++)
@@ -1396,6 +1398,35 @@ var LT;
             g.globalAlpha = 1;
         }
         drawProp(g, p, r, s) {
+            const key = [p.type, r, p.variant, p.w, p.h, p.label || ''].join(':');
+            let plate = this.propCache.get(key);
+            if (!plate) {
+                plate = C(384, 336);
+                const c = plate.getContext('2d'), q = this.iso(p.x, p.y);
+                c.translate(192 - q.x, 220 - q.y);
+                this.paintProp(c, p, r, { ...s, x: -100, y: -100 });
+                c.setTransform(1, 0, 0, 1, 0, 0);
+                const rng = new LT.RNG(r * 811 + p.variant * 91 + p.type.length * 37);
+                c.globalCompositeOperation = 'source-atop';
+                for (let i = 0; i < 2100; i++) {
+                    c.fillStyle = i % 3 ? 'rgba(244,229,184,.075)' : 'rgba(8,25,31,.12)';
+                    c.fillRect(rng.int(384), rng.int(336), 1 + rng.int(3), 1);
+                }
+                c.globalCompositeOperation = 'source-over';
+                this.propCache.set(key, plate);
+            }
+            const q = this.iso(p.x, p.y), foot = this.iso(s.x, s.y);
+            const hide = p.type === 'house' && Math.abs(foot.x - q.x) < p.w * 36 + 25 && foot.y - q.y > -150 && foot.y - q.y < p.h * 18 + 50 && s.x + s.y < p.x + p.y + p.w + p.h;
+            g.save();
+            g.globalAlpha = hide ? .3 : 1;
+            g.imageSmoothingEnabled = false;
+            g.drawImage(plate, q.x - 192, q.y - 220);
+            g.imageSmoothingEnabled = true;
+            g.restore();
+            if (p.type === 'lamp')
+                glow(g, q.x, q.y - 43, 47, '250,187,101', .09 + .025 * Math.sin(this.time * 3 + p.x));
+        }
+        paintProp(g, p, r, s) {
             const palette = LT.REGIONS[Math.min(r, 7)].palette, q = this.iso(p.x, p.y);
             g.save();
             g.translate(q.x, q.y);
@@ -1757,13 +1788,39 @@ var LT;
             this.atmosphere(g, s.region, this.time, s.settings.quality);
         }
         battlePosition(a, b) { const group = b.actors.filter(x => x.team === a.team), i = group.indexOf(a); if (a.team === 'hero')
-            return { x: 205 + i * 62, y: 270 + i * 46, scale: 2.1 }; const boss = LT.enemyById(a.enemyId)?.boss; return { x: group.length === 1 ? 925 : 790 + i * 155, y: group.length === 1 ? 440 : 350 + (i % 2) * 68, scale: boss ? 2.05 : 1.27 }; }
+            return { x: 195 + i * 65, y: 342 + i * 40, scale: 2.1 }; const boss = LT.enemyById(a.enemyId)?.boss; return { x: group.length === 1 ? 925 : 790 + i * 155, y: group.length === 1 ? 440 : 350 + (i % 2) * 68, scale: boss ? 2.05 : 1.27 }; }
         battleFrame(b, dt) {
             this.time += dt;
             const g = this.ctx;
             g.setTransform(1.5, 0, 0, 1.5, 0, 0);
             this.backdrop(g, b.state.region, this.time, true);
             const p = LT.REGIONS[Math.min(b.state.region, 7)].palette;
+            if (this.titleImage?.complete && this.titleImage.naturalWidth) {
+                g.save();
+                g.globalAlpha = .3;
+                g.filter = 'blur(2px)';
+                g.drawImage(this.titleImage, 0, -155, 1280, 720);
+                g.restore();
+                const mist = g.createLinearGradient(0, 100, 0, 530);
+                mist.addColorStop(0, 'rgba(8,24,34,.12)');
+                mist.addColorStop(1, p[0]);
+                g.fillStyle = mist;
+                g.fillRect(0, 100, 1280, 520);
+            }
+            if ([1, 3, 7].includes(b.state.region)) {
+                for (let i = 0; i < 15; i++) {
+                    g.save();
+                    g.translate(i * 103 - 50, 270 + Math.sin(i * 2) * 30);
+                    g.scale(1.5, 1.5);
+                    this.drawProp(g, { id: 'battle-tree', type: 'tree', x: 0, y: 0, w: 1, h: 1, variant: i % 6, solid: false }, b.state.region, { ...b.state, x: -100, y: -100 });
+                    g.restore();
+                }
+            }
+            polygon(g, [[-80, 365], [600, 258], [1360, 377], [1360, 730], [-80, 730]], tint(p[1], -16));
+            for (let i = 0; i < 36; i++) {
+                const x = (i * 109) % 1340, y = 340 + Math.floor(i / 9) * 49;
+                lineLocal(g, [[x, y], [x + 49, y - 7], [x + 86, y], [x + 36, y + 9], [x, y]], 'rgba(175,180,152,.09)', 1);
+            }
             for (let i = 0; i < 10; i++) {
                 const x = 80 + i * 138;
                 const h = 90 + Math.sin(i * 9) * 35;
@@ -1973,7 +2030,7 @@ var LT;
                     const nd = this.noiseBuffer.getChannelData(0);
                     let previous = 0;
                     for (let i = 0; i < nd.length; i++) {
-                        previous = (previous + .018 * (rng.next() * 2 - 1)) / .998;
+                        previous = (previous + .02 * (rng.next() * 2 - 1)) / 1.02;
                         previous = LT.clamp(previous, -1, 1);
                         nd[i] = previous * .1 + (rng.next() * 2 - 1) * .09;
                     }

@@ -97,5 +97,70 @@
     "file": "src/content.ts",
     "status": "applied",
     "before_sha256": "05261fa58996ff03"
+  },
+  "7471cac277a74d148feeaaad79b756e79d12e2aa3bc5b98193233ded86dd39eb": {
+    "patch": "003-battle-polish.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "ba2c903e09123faf"
+  },
+  "c8193520bb6d46105efd3fcc97a8c367d6fe5393bc308a477e57a5e4a9cd6804": {
+    "patch": "003-battle-polish.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "050b89b6c49ed979"
+  },
+  "3de5ae785aeb787f062d8fee71a5a25f02c45a375ea1a5144adc3dc43e8b86de": {
+    "patch": "003-battle-polish.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "11ae8e25d4a75824"
+  },
+  "ca77f8aaa296f522135b86ba19dc48746d9edf9ebbbf215a2c396c920c2a0338": {
+    "patch": "003-battle-polish.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "4db3cc02150baf75"
+  },
+  "a58022b9aafe103ba4425e8efbd772300e724042734d987cf95b184f23d2450c": {
+    "patch": "003-battle-polish.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "dd7defd774ca85eb"
+  },
+  "5b04d8ff33fa239c907f929569552c89f9a54adf3327249dce24e930528c1793": {
+    "patch": "003-battle-polish.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "0ebdaa5d56fdcf7b"
+  },
+  "3b761f4b1527c88a50a0acfd404efa06ba3552af54e881894b884d2a59146425": {
+    "patch": "003-battle-polish.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "11bebd58b3a188b8"
+  },
+  "a2f9e7a2678d9ccee911ffe84cd80374dd25807e9f48cb6e9da2f398f35ce18c": {
+    "patch": "003-battle-polish.json",
+    "file": "src/audio.ts",
+    "status": "applied",
+    "before_sha256": "577332cca762c060"
+  },
+  "b49f5b8b314f221f5df2e540e72091e5eb992c488ebd1ab5e867eacef580b37e": {
+    "patch": "003-battle-polish.json",
+    "file": "src/style.css",
+    "status": "applied",
+    "before_sha256": "d977089786671f44"
+  },
+  "5147e88b1b65fc8f0d9ba6f579a29d8ed7d26ae66e0960ed3db08139e3381dd2": {
+    "patch": "003-battle-polish.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "9f4b9fd41437f92b"
+  },
+  "04955f51f1c13786dbeaccd318bb4d9a5fc5bef7c950e29539000467a61869a0": {
+    "patch": "003-battle-polish.json",
+    "file": "src/core.ts",
+    "status": "already-applied"
   }
 }

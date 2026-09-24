@@ -120,7 +120,7 @@ namespace LT {
       if(d.boss&&this.round%3===0&&!a.charged){a.charged=true;this.line(a.name+'开始蓄潮！尽快破势，或让全员防御。');this.event('status',a,a,0,'蓄潮');this.next();return true;}
       const alive=this.living('hero');if(!alive.length){this.phase='lost';return false;}
       if(d.boss&&a.phase===2&&this.round%2===0){
-        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.015);this.line(a.name+'修复了外壳，获得短暂护盾。');}
+        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.035);this.line(a.name+'修复了外壳，获得短暂护盾。');}
         else if(d.family===2){a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+1)%8]);this.line('镜面折转，弱点再次改变。');}
         else if(d.family===3||d.family===5){const n=Math.round(a.maxhp*.025);a.hp=Math.min(a.maxhp,a.hp+n);this.event('heal',a,a,n,'汲忆');}
         else if(d.family===4){alive.forEach(t=>t.focus=Math.max(0,t.focus-1));this.line('裂面吸走了每位旅人 1 点涌势。');}

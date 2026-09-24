@@ -205,15 +205,10 @@ namespace LT {
       for(const e of this.world.entities.filter(e=>e.kind==='save'||e.kind==='switch')){const q=this.iso(e.x,e.y);if(e.kind==='save')glow(g,q.x,q.y-34,45,'230,192,114',.13);}
       g.restore();this.atmosphere(g,s.region,this.time,s.settings.quality);
     }
-    battlePosition(a:Actor,b:Battle):{x:number;y:number;scale:number}{const group=b.actors.filter(x=>x.team===a.team),i=group.indexOf(a);if(a.team==='hero')return{x:195+i*65,y:342+i*40,scale:2.1};const boss=enemyById(a.enemyId)?.boss;return{x:group.length===1?925:790+i*155,y:group.length===1?440:350+(i%2)*68,scale:boss?2.05:1.27};}
+    battlePosition(a:Actor,b:Battle):{x:number;y:number;scale:number}{const group=b.actors.filter(x=>x.team===a.team),i=group.indexOf(a);if(a.team==='hero')return{x:205+i*62,y:270+i*46,scale:2.1};const boss=enemyById(a.enemyId)?.boss;return{x:group.length===1?925:790+i*155,y:group.length===1?440:350+(i%2)*68,scale:boss?2.05:1.27};}
     battleFrame(b:Battle,dt:number):void {
       this.time+=dt;const g=this.ctx;g.setTransform(1.5,0,0,1.5,0,0);this.backdrop(g,b.state.region,this.time,true);
       const p=REGIONS[Math.min(b.state.region,7)].palette;
-      if(this.titleImage?.complete&&this.titleImage.naturalWidth){g.save();g.globalAlpha=.3;g.filter='blur(2px)';g.drawImage(this.titleImage,0,-155,1280,720);g.restore();const mist=g.createLinearGradient(0,100,0,530);mist.addColorStop(0,'rgba(8,24,34,.12)');mist.addColorStop(1,p[0]);g.fillStyle=mist;g.fillRect(0,100,1280,520);}
-      if([1,3,7].includes(b.state.region)){for(let i=0;i<15;i++){g.save();g.translate(i*103-50,270+Math.sin(i*2)*30);g.scale(1.5,1.5);this.drawProp(g,{id:'battle-tree',type:'tree',x:0,y:0,w:1,h:1,variant:i%6,solid:false},b.state.region,{...b.state,x:-100,y:-100});g.restore();}}
-      polygon(g,[[-80,365],[600,258],[1360,377],[1360,730],[-80,730]],tint(p[1],-16));
-      for(let i=0;i<36;i++){const x=(i*109)%1340,y=340+Math.floor(i/9)*49;lineLocal(g,[[x,y],[x+49,y-7],[x+86,y],[x+36,y+9],[x,y]],'rgba(175,180,152,.09)',1);}
-
       for(let i=0;i<10;i++){const x=80+i*138;const h=90+Math.sin(i*9)*35;polygon(g,[[x,345],[x+38,322],[x+38,322-h],[x,345-h]],tint(p[1],-7));polygon(g,[[x+38,322],[x+56,333],[x+56,333-h],[x+38,322-h]],tint(p[0],7));}
       const floor=g.createLinearGradient(0,350,0,720);floor.addColorStop(0,'rgba(18,33,40,0)');floor.addColorStop(1,tint(p[0],7));g.fillStyle=floor;g.fillRect(0,350,1280,370);
       for(let y=375;y<730;y+=40){g.strokeStyle='rgba(155,170,157,.08)';g.beginPath();g.moveTo(0,y);g.lineTo(1280,y);g.stroke();}

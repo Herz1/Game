@@ -68,12 +68,12 @@
         {
           "region": 0,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 1,
           "level": 7,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 2,
@@ -83,7 +83,7 @@
         {
           "region": 3,
           "level": 13,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 4,
@@ -93,7 +93,7 @@
         {
           "region": 5,
           "level": 18,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 6,
@@ -103,11 +103,11 @@
         {
           "region": 7,
           "level": 23,
-          "rounds": 2
+          "rounds": 3
         }
       ],
       "finalRounds": [
-        3,
+        4,
         4
       ],
       "level": 25,
@@ -120,12 +120,12 @@
         {
           "region": 1,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 2,
           "level": 7,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 3,
@@ -145,22 +145,22 @@
         {
           "region": 6,
           "level": 18,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 7,
           "level": 21,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 0,
           "level": 23,
-          "rounds": 2
+          "rounds": 3
         }
       ],
       "finalRounds": [
-        2,
-        3
+        3,
+        4
       ],
       "level": 25,
       "completedQuests": 32,
@@ -172,12 +172,12 @@
         {
           "region": 2,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 3,
           "level": 7,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 4,
@@ -187,12 +187,12 @@
         {
           "region": 5,
           "level": 13,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 6,
           "level": 16,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 7,
@@ -202,17 +202,17 @@
         {
           "region": 0,
           "level": 21,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 1,
           "level": 23,
-          "rounds": 3
+          "rounds": 4
         }
       ],
       "finalRounds": [
         4,
-        3
+        4
       ],
       "level": 25,
       "completedQuests": 32,
@@ -224,17 +224,17 @@
         {
           "region": 3,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 4,
           "level": 7,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 5,
           "level": 10,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 6,
@@ -244,7 +244,7 @@
         {
           "region": 7,
           "level": 16,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 0,
@@ -254,17 +254,17 @@
         {
           "region": 1,
           "level": 21,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 2,
           "level": 23,
-          "rounds": 3
+          "rounds": 4
         }
       ],
       "finalRounds": [
-        3,
-        3
+        4,
+        4
       ],
       "level": 25,
       "completedQuests": 32,
@@ -276,22 +276,22 @@
         {
           "region": 4,
           "level": 4,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 5,
           "level": 7,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 6,
           "level": 10,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 7,
           "level": 13,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 0,
@@ -301,7 +301,7 @@
         {
           "region": 1,
           "level": 18,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 2,
@@ -315,8 +315,8 @@
         }
       ],
       "finalRounds": [
-        4,
-        2
+        5,
+        3
       ],
       "level": 25,
       "completedQuests": 32,
@@ -328,17 +328,17 @@
         {
           "region": 5,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 6,
           "level": 7,
-          "rounds": 3
+          "rounds": 5
         },
         {
           "region": 7,
           "level": 10,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 0,
@@ -348,7 +348,7 @@
         {
           "region": 1,
           "level": 16,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 2,
@@ -358,17 +358,17 @@
         {
           "region": 3,
           "level": 21,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 4,
           "level": 23,
-          "rounds": 3
+          "rounds": 4
         }
       ],
       "finalRounds": [
         4,
-        2
+        3
       ],
       "level": 25,
       "completedQuests": 32,
@@ -385,12 +385,12 @@
         {
           "region": 7,
           "level": 7,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 0,
           "level": 10,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 1,
@@ -400,7 +400,7 @@
         {
           "region": 2,
           "level": 16,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 3,
@@ -415,12 +415,12 @@
         {
           "region": 5,
           "level": 23,
-          "rounds": 2
+          "rounds": 3
         }
       ],
       "finalRounds": [
-        2,
-        2
+        3,
+        3
       ],
       "level": 25,
       "completedQuests": 32,
@@ -432,12 +432,12 @@
         {
           "region": 7,
           "level": 4,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 0,
           "level": 7,
-          "rounds": 2
+          "rounds": 3
         },
         {
           "region": 1,
@@ -447,7 +447,7 @@
         {
           "region": 2,
           "level": 13,
-          "rounds": 3
+          "rounds": 4
         },
         {
           "region": 3,
@@ -467,11 +467,11 @@
         {
           "region": 6,
           "level": 23,
-          "rounds": 2
+          "rounds": 3
         }
       ],
       "finalRounds": [
-        3,
+        4,
         3
       ],
       "level": 25,
@@ -487,8 +487,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 1.67,
-      "meanRemainingHp": 0.9777851950540462
+      "meanRounds": 2.125,
+      "meanRemainingHp": 0.9532608848838674
     },
     {
       "level": 1,
@@ -497,8 +497,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 2.975,
-      "meanRemainingHp": 0.9630426379301997
+      "meanRounds": 3.945,
+      "meanRemainingHp": 0.9267894876163016
     },
     {
       "level": 8,
@@ -507,8 +507,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 1.085,
-      "meanRemainingHp": 0.9967256100888839
+      "meanRounds": 1.415,
+      "meanRemainingHp": 0.9897085648107427
     },
     {
       "level": 8,
@@ -517,8 +517,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 2.895,
-      "meanRemainingHp": 0.9745076883165935
+      "meanRounds": 3.96,
+      "meanRemainingHp": 0.940563205987452
     },
     {
       "level": 15,
@@ -527,8 +527,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 1,
-      "meanRemainingHp": 1
+      "meanRounds": 1.285,
+      "meanRemainingHp": 0.994156606648444
     },
     {
       "level": 15,
@@ -537,8 +537,8 @@
       "seeds": 200,
       "wins": 200,
       "winRate": 1,
-      "meanRounds": 3.355,
-      "meanRemainingHp": 0.9731399392031861
+      "meanRounds": 4.375,
+      "meanRemainingHp": 0.9552838970489916
     }
   ],
   "claims": {

@@ -5,9 +5,9 @@
   "description": "Original Chinese fantasy JRPG — Lantern Tides",
   "scripts": {
     "dev": "npm run build && node tools/serve.cjs",
-    "build": "tsc -p tsconfig.json && node tools/build.cjs",
+    "build": "node tools/apply-patches.cjs && tsc -p tsconfig.json && node tools/build.cjs",
     "preview": "node tools/serve.cjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "node tools/apply-patches.cjs && tsc -p tsconfig.json --noEmit",
     "lint": "node tools/lint.cjs",
     "test": "node tests/run.cjs",
     "validate:data": "node tools/validate.cjs data",

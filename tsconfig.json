@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", "module": "none", "lib": ["ES2020", "DOM"],
+    "strict": true, "noImplicitReturns": true, "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true, "skipLibCheck": true,
+    "outFile": "build/runtime.js", "sourceMap": true
+  },
+  "files": ["src/content.ts", "src/core.ts", "src/world.ts", "src/render.ts", "src/audio.ts", "src/app.ts"]
+}

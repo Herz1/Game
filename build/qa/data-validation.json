@@ -1,0 +1,222 @@
+{
+  "mode": "data",
+  "checks": 5426,
+  "maps": [
+    {
+      "id": "0:town",
+      "entities": 13,
+      "props": 35
+    },
+    {
+      "id": "0:road",
+      "entities": 11,
+      "props": 42
+    },
+    {
+      "id": "0:dungeon",
+      "entities": 11,
+      "props": 24
+    },
+    {
+      "id": "0:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "0:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "1:town",
+      "entities": 13,
+      "props": 44
+    },
+    {
+      "id": "1:road",
+      "entities": 10,
+      "props": 62
+    },
+    {
+      "id": "1:dungeon",
+      "entities": 11,
+      "props": 25
+    },
+    {
+      "id": "1:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "1:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "2:town",
+      "entities": 13,
+      "props": 32
+    },
+    {
+      "id": "2:road",
+      "entities": 11,
+      "props": 42
+    },
+    {
+      "id": "2:dungeon",
+      "entities": 11,
+      "props": 28
+    },
+    {
+      "id": "2:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "2:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "3:town",
+      "entities": 13,
+      "props": 49
+    },
+    {
+      "id": "3:road",
+      "entities": 10,
+      "props": 57
+    },
+    {
+      "id": "3:dungeon",
+      "entities": 11,
+      "props": 23
+    },
+    {
+      "id": "3:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "3:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "4:town",
+      "entities": 13,
+      "props": 38
+    },
+    {
+      "id": "4:road",
+      "entities": 11,
+      "props": 41
+    },
+    {
+      "id": "4:dungeon",
+      "entities": 11,
+      "props": 23
+    },
+    {
+      "id": "4:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "4:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "5:town",
+      "entities": 13,
+      "props": 35
+    },
+    {
+      "id": "5:road",
+      "entities": 10,
+      "props": 39
+    },
+    {
+      "id": "5:dungeon",
+      "entities": 11,
+      "props": 17
+    },
+    {
+      "id": "5:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "5:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "6:town",
+      "entities": 13,
+      "props": 46
+    },
+    {
+      "id": "6:road",
+      "entities": 11,
+      "props": 59
+    },
+    {
+      "id": "6:dungeon",
+      "entities": 11,
+      "props": 26
+    },
+    {
+      "id": "6:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "6:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "7:town",
+      "entities": 13,
+      "props": 40
+    },
+    {
+      "id": "7:road",
+      "entities": 10,
+      "props": 57
+    },
+    {
+      "id": "7:dungeon",
+      "entities": 11,
+      "props": 26
+    },
+    {
+      "id": "7:inn",
+      "entities": 2,
+      "props": 14
+    },
+    {
+      "id": "7:shop",
+      "entities": 2,
+      "props": 15
+    },
+    {
+      "id": "8:final",
+      "entities": 11,
+      "props": 24
+    }
+  ],
+  "content": {
+    "heroes": 8,
+    "regions": 8,
+    "quests": 32,
+    "items": 104,
+    "skills": 96,
+    "enemies": 62,
+    "bosses": 14
+  },
+  "passed": true,
+  "errors": []
+}

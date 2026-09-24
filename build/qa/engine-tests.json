@@ -1,0 +1,551 @@
+{
+  "tests": [
+    {
+      "name": "eight unique starting states with playable stats",
+      "passed": true
+    },
+    {
+      "name": "recruitment is idempotent and formation is capped",
+      "passed": true
+    },
+    {
+      "name": "equipment restrictions, inventory conservation and shop transactions",
+      "passed": true
+    },
+    {
+      "name": "consumables reject invalid use without consumption",
+      "passed": true
+    },
+    {
+      "name": "all 64 active skills execute and spend resources once",
+      "passed": true
+    },
+    {
+      "name": "all 32 passives have a learnable path",
+      "passed": true
+    },
+    {
+      "name": "break skips exactly one enemy action and restores guard",
+      "passed": true
+    },
+    {
+      "name": "bosses cannot be escaped and defeat resolves",
+      "passed": true
+    },
+    {
+      "name": "all boss entries transition phase and change weaknesses",
+      "passed": true
+    },
+    {
+      "name": "victory rewards cannot be duplicated",
+      "passed": true
+    },
+    {
+      "name": "all 32 quests accept evidence before acceptance and complete once",
+      "passed": true
+    },
+    {
+      "name": "save roundtrip, checksum corruption, three slots and atomic write failure",
+      "passed": true
+    },
+    {
+      "name": "status duration expires without permanent lock",
+      "passed": true
+    },
+    {
+      "name": "all eight starting heroes can finish an earned-progression campaign",
+      "passed": true
+    },
+    {
+      "name": "1200 seeded representative balance simulations terminate with finite resources",
+      "passed": true
+    }
+  ],
+  "criticalPaths": [
+    {
+      "start": 0,
+      "route": [
+        {
+          "region": 0,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 1,
+          "level": 7,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 3,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 5,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 7,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 1,
+      "route": [
+        {
+          "region": 1,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 2,
+          "level": 7,
+          "rounds": 2
+        },
+        {
+          "region": 3,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 5,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 7,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 0,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 2,
+      "route": [
+        {
+          "region": 2,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 3,
+          "level": 7,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 5,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 7,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 0,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 3,
+      "route": [
+        {
+          "region": 3,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 4,
+          "level": 7,
+          "rounds": 2
+        },
+        {
+          "region": 5,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 7,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 0,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 4,
+      "route": [
+        {
+          "region": 4,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 5,
+          "level": 7,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 7,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 0,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 3,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 5,
+      "route": [
+        {
+          "region": 5,
+          "level": 4,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 7,
+          "rounds": 2
+        },
+        {
+          "region": 7,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 0,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 3,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 6,
+      "route": [
+        {
+          "region": 6,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 7,
+          "level": 7,
+          "rounds": 2
+        },
+        {
+          "region": 0,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 3,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 5,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    },
+    {
+      "start": 7,
+      "route": [
+        {
+          "region": 7,
+          "level": 4,
+          "rounds": 2
+        },
+        {
+          "region": 0,
+          "level": 7,
+          "rounds": 1
+        },
+        {
+          "region": 1,
+          "level": 10,
+          "rounds": 1
+        },
+        {
+          "region": 2,
+          "level": 13,
+          "rounds": 1
+        },
+        {
+          "region": 3,
+          "level": 16,
+          "rounds": 1
+        },
+        {
+          "region": 4,
+          "level": 18,
+          "rounds": 1
+        },
+        {
+          "region": 5,
+          "level": 21,
+          "rounds": 1
+        },
+        {
+          "region": 6,
+          "level": 23,
+          "rounds": 1
+        }
+      ],
+      "finalRounds": [
+        1,
+        1
+      ],
+      "level": 25,
+      "completedQuests": 32,
+      "notes": "Engine simulation; road recruitment assumed accessible, full rests between encounters, chest-equivalent weapons granted per chapter. UI story/ending tested separately."
+    }
+  ],
+  "balance": [
+    {
+      "level": 1,
+      "bells": 0,
+      "kind": "normal",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 1.215,
+      "meanRemainingHp": 0.9853534171323668
+    },
+    {
+      "level": 1,
+      "bells": 0,
+      "kind": "boss",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 2.185,
+      "meanRemainingHp": 0.9662562314820152
+    },
+    {
+      "level": 8,
+      "bells": 3,
+      "kind": "normal",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 1,
+      "meanRemainingHp": 1
+    },
+    {
+      "level": 8,
+      "bells": 3,
+      "kind": "boss",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 1.205,
+      "meanRemainingHp": 1
+    },
+    {
+      "level": 15,
+      "bells": 7,
+      "kind": "normal",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 1,
+      "meanRemainingHp": 1
+    },
+    {
+      "level": 15,
+      "bells": 7,
+      "kind": "boss",
+      "seeds": 200,
+      "wins": 200,
+      "winRate": 1,
+      "meanRounds": 1,
+      "meanRemainingHp": 1
+    }
+  ],
+  "claims": {
+    "enginePlaythrough": true,
+    "browserPlaythrough": false,
+    "physicalGamepad": false
+  },
+  "passed": true,
+  "failures": 0
+}

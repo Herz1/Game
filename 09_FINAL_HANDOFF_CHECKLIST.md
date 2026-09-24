@@ -1,0 +1,40 @@
+# Final Handoff Checklist
+
+- [ ] Original title/logo present
+- [ ] README complete
+- [ ] clean install works
+- [ ] production build works
+- [ ] release build retained
+- [ ] main story completable
+- [ ] final boss works
+- [ ] credits/ending works
+- [ ] post-ending behavior defined
+- [ ] 8 protagonists implemented and relevant
+- [ ] towns/routes/dungeons integrated
+- [ ] side quests completable
+- [ ] bestiary/journal/glossary functional
+- [ ] all critical menus functional
+- [ ] save/load/autosave verified
+- [ ] keyboard verified
+- [ ] gamepad verified where environment permits
+- [ ] settings verified
+- [ ] audio mixer verified
+- [ ] no missing critical assets
+- [ ] no placeholder text on release path
+- [ ] no ripped/copyrighted commercial assets
+- [ ] all generated art prompts preserved
+- [ ] raw/source assets preserved
+- [ ] processed assets preserved
+- [ ] balance source data preserved
+- [ ] QA report written
+- [ ] zero known P0/P1 issues
+- [ ] third-party notices accurate
+- [ ] Image 2.5 / generated-art prompts and raw outputs preserved where used
+- [ ] character identity sheets and expression-source sheets preserved
+- [ ] asset source-to-runtime lineage auditable
+- [ ] `assets/vendor_manifest.json` complete for external media
+- [ ] every external music/SFX item has source URL, terms URL and attribution
+- [ ] in-game Credits includes required third-party music attribution
+- [ ] no prohibited standalone redistribution of third-party source tracks
+- [ ] no external music used as AI training/generation input
+- [ ] final repository state committed

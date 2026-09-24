@@ -1,0 +1,17 @@
+[
+  {
+    "file": "src/app.ts",
+    "before": "btn('all-targets','确认 · '+(friendly?'全体伙伴':'全体敌人'),'','','')",
+    "after": "btn('all-targets','确认 · '+(friendly?'全体伙伴':'全体敌人'),'','')"
+  },
+  {
+    "file": "src/app.ts",
+    "before": "this.menu=name;this.mode='menu';this.keys.clear();",
+    "after": "this.menu=name;if(name==='map')this.selectedRegion=Math.min(this.state.region,7);this.mode='menu';this.keys.clear();"
+  },
+  {
+    "file": "src/style.css",
+    "before": "@media(pointer:coarse)",
+    "after": ".enemy-panel:disabled,.battle-party .party-card:disabled{opacity:1;cursor:default}.battle-party .party-card.dead:disabled{opacity:.5}.turn-strip{overflow:hidden;max-width:480px}.turn-strip .turn{max-width:98px;overflow:hidden;text-overflow:ellipsis;flex-shrink:1}@media(pointer:coarse)"
+  }
+]

@@ -1,0 +1,13 @@
+# Original title key art v03 — Lantern Tides
+
+This is the production brief for the next integrated image-generation attempt. Date: 2026-09-24.
+
+Create an ORIGINAL cinematic landscape background for a Japanese-fantasy RPG called Lantern Tides. 16:9 composition, no lettering, no logos, no UI, no existing franchise characters or recognizable landmarks. A quiet medieval coastal town at blue hour, viewed from a high mossy stone terrace. The right half holds a weathered ivory lighthouse on an island, connected by a narrow arched causeway. An enormous soft moon reflects in a dark turquoise sea. Warm amber windows, timber-and-plaster cottages, slate roofs, hanging fishing nets, old stairways, little moored sailboats, ivy and salt-worn stone. Eight tiny adult travelers with different silhouettes stand at the lower right, looking toward the lighthouse: teal sailor cape; ochre armored guardian with crimson scarf; ivory scholar with rust-red braid; pale green herbalist; plum-cloaked silver-haired rogue; blonde blue-dressed bard; sand-coated mechanic with orange scarf; silver-blue-haired ranger in a fur-lined slate cloak. Keep them small, not character closeups. Subtle sea mist, golden fireflies, a narrow rotating beam of warm lighthouse light, layered islands fading into cool distance. Detailed pixel-art / dimensional miniature-diorama aesthetic, rich atmospheric depth, restrained bloom, fine but readable handcrafted textures, painterly high-value environment art. The LEFT 40 percent must remain a dark quiet foreground of foliage and shadowed stone, with low contrast and no major object, to receive a separately rendered game title and menu. Strong warm/cool lighting contrast; not photorealistic; no modern buildings; no text anywhere; no watermarks.
+
+Preserve untouched output under assets/source/environments. Runtime may resize, compress to WebP and use a slow camera drift. Record only actual exposed generation metadata; do not invent a seed or model version.
+
+## Recovery audit
+The recovered file `title-original.png` visibly contains a commercial franchise title and menu. It is NOT adopted as runtime title art. Preserve it only as a rejected recovery artifact, with this explicit rejection. The recovered `01-title.png` is a screenshot of an earlier procedural Lantern Tides title, not an untouched source illustration.
+
+## Prior attempt status
+The v02 portrait-atlas generation attempt returned an error before any image was created. It is not counted as generated or adopted art. Existing canonical portraits can be recovered as derivative crops from the surviving selection-screen screenshot; this does not restore their missing original generation sheet or seven expression variants.

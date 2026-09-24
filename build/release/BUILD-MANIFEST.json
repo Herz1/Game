@@ -2,10 +2,51 @@
   "title": "灯潮 · 第八座灯塔",
   "version": 2,
   "format": "one self-contained HTML",
-  "html_sha256": "bc5631fbe24e9f32a9809708f8c3a6975acb31efa1c8bf31c303b2922b7506d7",
-  "html_bytes": 259586,
+  "html_sha256": "dec50952519f6aee34313e1cf52d5614584e150d05f66a7a3a869741cdf19f80",
+  "html_bytes": 269265,
   "runtime_sha256": "fbb3f203a7b25559d714162e11a2db5cceaec9a242050ec06066440e756d98a7",
-  "assets": [],
+  "assets": [
+    {
+      "id": "portrait0",
+      "sha256": "ec546c2a8ecb1b0404c0514a7c9d7947845257fd4e899938a9179e41d8eb8cbf",
+      "bytes": 876
+    },
+    {
+      "id": "portrait1",
+      "sha256": "4f8df5e921b26b75e62177e8974d0b4363187e50943efb5a83f246fb3a5b347d",
+      "bytes": 814
+    },
+    {
+      "id": "portrait2",
+      "sha256": "249c3e821dd9a696e0cf70be569ae32829e6b7a6aa5c749f79313fa1b2d4ceb4",
+      "bytes": 882
+    },
+    {
+      "id": "portrait3",
+      "sha256": "093b54f0676a96414c74d0791767bee128a277ded2f356f518d5eb740ae7470e",
+      "bytes": 776
+    },
+    {
+      "id": "portrait4",
+      "sha256": "42570fe6bccad1af76120f129b5a0c6464fad2a467db443778baccc0c7140f0f",
+      "bytes": 950
+    },
+    {
+      "id": "portrait5",
+      "sha256": "2da6708cd88ee5c29d555f00efe03bcfaa79ff4f12ef3df1bdfb7315b7a6ed7b",
+      "bytes": 940
+    },
+    {
+      "id": "portrait6",
+      "sha256": "25ea6696cfa47b969f8651fd550494db929af75620615a26841730cab2f06389",
+      "bytes": 832
+    },
+    {
+      "id": "portrait7",
+      "sha256": "3e35947bb14f21216a7bee50bdb83e70366d255d20251bea414b2104bd4e48df",
+      "bytes": 954
+    }
+  ],
   "content_counts": {
     "heroes": 8,
     "regions": 8,

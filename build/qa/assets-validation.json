@@ -1,7 +1,7 @@
 {
   "mode": "assets",
-  "checks": 13,
-  "embeddedImages": 0,
+  "checks": 37,
+  "embeddedImages": 8,
   "proceduralHeroSprites": 8,
   "proceduralEnemyEntries": 62,
   "scoreThemes": 8,

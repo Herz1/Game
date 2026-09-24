@@ -19,9 +19,23 @@ jobs:
         with:
           name: source-${{ github.sha }}
           path: |
-            **
-            .github
-          include-hidden-files: true
+            *.md
+            *.json
+            LICENSE
+            src/**
+            tools/**
+            tests/**
+            assets/**
+            docs/**
+            design/**
+            data/**
+            archive/**
+            build/**
+            .github/workflows/*.yml
+            !.git/**
+            !node_modules/**
+            !**/.env*
+          include-hidden-files: false
           retention-days: 90
       - uses: actions/setup-node@v4
         with:

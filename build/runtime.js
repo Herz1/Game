@@ -122,7 +122,7 @@ var LT;
         ['第八封家书', '邮差 · 洛', 'delivery', '七封信都送到了。最后一封写着：请回到开始的地方。', '拜访暮汐港的旅人信箱。', '信是邮差年轻时写给自己的。他读完，决定今天早一点回家。']
     ];
     LT.QUESTS = questRows.map((q, i) => ({ id: `q${i}`, region: Math.floor(i / 4), name: q[0], npc: q[1], kind: q[2], request: q[3], objective: q[4], resolution: q[5], reward: 120 + Math.floor(i / 4) * 20, late: '潮铃唤醒四座以后，旧日的记忆开始回来。' + q[1].split(' · ')[1] + '想对你说：记起来以后，日子没有变得简单。但现在，选择是我们自己的。' }));
-    LT.GLOSSARY = [['潮铃', '八枚地域共鸣器。唤醒它们并非积蓄力量，而是让各地被抹去的记忆重新流动。'], ['灯芯', '以记忆凝成的发光物质。越深刻的感情，能点亮越漫长的夜。'], ['守明院', '以维持灯塔、安抚潮汐为职责的机构。内部有人坚守旧约，也有人开始质疑以遗忘换取安宁的代价。'], ['静潮', '潮汐被永久抚平的状态。港口因此安全，但迁徙、季节和人的记忆逐渐停滞。'], ['护势与破绽', '以敌人的弱点攻击会削减护势。护势归零后，敌人失去下一次行动，期间受到更多伤害。'], ['涌势', '每回合获得 1 点，最多 3 点。行动前投入涌势可增加命中次数或治疗与护盾强度。未投入的涌势保留到下一轮。'], ['第八座灯塔', '八座塔之下共同的中枢，不是一座更高的建筑。它存在于所有人同意忘记的那一刻。'], ['归潮', '接受记忆会带来伤痛，也保留再次相遇、改变和选择的可能。']];
+    LT.GLOSSARY = [['潮铃', '八枚地域共鸣器。唤醒它们并非积蓄力量，而是让各地被抹去的记忆重新流动。'], ['灯芯', '以记忆凝成的发光物质。越深刻的感情，能点亮越漫长的夜。'], ['守明院', '以维持灯塔、安抚潮汐为职责的机构。内部有人坚守旧约，也有人开始质疑以遗忘换取安宁的代价。'], ['静潮', '潮汐被永久抚平的状态。港口因此安全，但迁徙、季节和人的记忆逐渐停滞。'], ['护势与破绽', '以敌人的弱点攻击会削减护势。护势归零后，敌人失去下一次行动，期间受到更多伤害。Boss重整后获得稳势，直到完成一次行动前不会再次被破势，不能永久控制。'], ['涌势', '每回合获得 1 点，最多 3 点。行动前投入涌势可增加命中次数或治疗与护盾强度。未投入的涌势保留到下一轮。'], ['第八座灯塔', '八座塔之下共同的中枢，不是一座更高的建筑。它存在于所有人同意忘记的那一刻。'], ['归潮', '接受记忆会带来伤痛，也保留再次相遇、改变和选择的可能。']];
     LT.ACTS = [
         ['一 · 分开的路', '八座灯塔，让八片海不再涨潮。寻找同路人，调查各地的旧灯芯。'],
         ['二 · 同一枚灯芯', '两枚潮铃发出了同一种回声。守明院并非在收集能源，而是在收集人们不愿承受的记忆。'],
@@ -252,12 +252,12 @@ var LT;
             this.mandatory = ids.some(id => LT.enemyById(id)?.boss && !LT.enemyById(id)?.elite);
             for (const id of state.active) {
                 const h = LT.hero(state, id), st = stats(h);
-                this.actors.push({ key: `h${id}`, team: 'hero', heroId: id, enemyId: '', name: LT.HEROES[id].name, level: h.level, hp: h.hp, maxhp: st.hp, mp: h.mp, maxmp: st.mp, atk: st.atk, mag: st.mag, def: st.def, speed: st.speed, focus: 0, guard: 0, maxguard: 0, weak: [], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false });
+                this.actors.push({ key: `h${id}`, team: 'hero', heroId: id, enemyId: '', name: LT.HEROES[id].name, level: h.level, hp: h.hp, maxhp: st.hp, mp: h.mp, maxmp: st.mp, atk: st.atk, mag: st.mag, def: st.def, speed: st.speed, focus: 0, guard: 0, maxguard: 0, weak: [], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false, recovering: false });
             }
             const level = Math.max(1, 1 + state.bells.length * 2);
             const diff = state.settings.difficulty === 'story' ? .72 : state.settings.difficulty === 'hard' ? 1.2 : 1;
             ids.forEach((id, i) => { const d = LT.enemyById(id); if (!d)
-                throw new Error('Unknown enemy ' + id); const boss = d.boss; const partyScale = boss ? Math.max(.65, state.active.length * .63) : 1; const hp = Math.round((boss ? 160 + level * 32 : 48 + d.variant * 11 + level * 17) * partyScale * diff * (d.elite ? 1.2 : 1)); this.actors.push({ key: `e${i}`, team: 'enemy', heroId: -1, enemyId: id, name: d.name, level, hp, maxhp: hp, mp: 999, maxmp: 999, atk: Math.round((boss ? 15 + level * 3.3 : 11 + level * 2.9 + d.variant) * diff), mag: Math.round((boss ? 17 + level * 3.4 : 10 + level * 3) * diff), def: 7 + level * 2, speed: 10 + level * .65 + d.variant, focus: 0, guard: d.guard, maxguard: d.guard, weak: [...d.weak], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false }); const seen = state.bestiary[id] || (state.bestiary[id] = { seen: 0, kills: 0, weak: [] }); seen.seen++; });
+                throw new Error('Unknown enemy ' + id); const boss = d.boss; const partyScale = boss ? Math.max(.65, state.active.length * .63) : 1; const hp = Math.round((boss ? 160 + level * 32 : 48 + d.variant * 11 + level * 17) * partyScale * diff * (d.elite ? 1.2 : 1) * (boss ? 2.1 + level * .18 : 1.45 + level * .16)); this.actors.push({ key: `e${i}`, team: 'enemy', heroId: -1, enemyId: id, name: d.name, level, hp, maxhp: hp, mp: 999, maxmp: 999, atk: Math.round((boss ? 15 + level * 3.3 : 11 + level * 2.9 + d.variant) * diff), mag: Math.round((boss ? 17 + level * 3.4 : 10 + level * 3) * diff), def: 7 + level * 2, speed: 10 + level * .65 + d.variant, focus: 0, guard: d.guard, maxguard: d.guard, weak: [...d.weak], statuses: {}, barrier: 0, stagger: false, phase: 1, charged: false, defending: false, recovering: false }); const seen = state.bestiary[id] || (state.bestiary[id] = { seen: 0, kills: 0, weak: [] }); seen.seen++; });
             this.line('察看弱点，积蓄涌势。在破绽出现时一击决定胜负。');
             this.next();
         }
@@ -293,6 +293,7 @@ var LT;
             if (a.stagger) {
                 a.stagger = false;
                 a.guard = a.maxguard;
+                a.recovering = a.team === 'enemy' && !!LT.enemyById(a.enemyId)?.boss;
                 this.line(a.name + '失去行动，重新站稳。');
                 this.event('status', a, a, 0, '护势重整');
                 this.current = '';
@@ -329,14 +330,15 @@ var LT;
         }
         intent(a) { if (a.stagger)
             return '破绽 · 下次行动跳过'; if (a.charged)
-            return '大潮横扫 · 全体'; if (LT.enemyById(a.enemyId)?.boss && this.round % 3 === 0)
+            return '大潮横扫 · 全体'; if (a.recovering)
+            return '稳势 · 下次行动前不可再破势'; if (LT.enemyById(a.enemyId)?.boss && this.round % 3 === 0)
             return '蓄潮 · 准备强击'; return a.phase === 2 ? '狂澜 · 强击' : '袭击 · 单体'; }
         discover(t, element) { if (t.team === 'enemy') {
             const b = this.state.bestiary[t.enemyId];
             if (!b.weak.includes(element))
                 b.weak.push(element);
         } }
-        pressure(t, a, n) { if (t.team !== 'enemy' || t.stagger || t.hp <= 0)
+        pressure(t, a, n) { if (t.team !== 'enemy' || t.stagger || t.recovering || t.hp <= 0)
             return; t.guard = Math.max(0, t.guard - n); if (!t.guard) {
             t.stagger = true;
             t.charged = false;
@@ -498,6 +500,7 @@ var LT;
             if (this.phase !== 'enemy' || !a)
                 return false;
             const d = LT.enemyById(a.enemyId);
+            a.recovering = false;
             if (d.boss && a.phase === 1 && a.hp <= a.maxhp * .5) {
                 a.phase = 2;
                 a.weak = a.weak.map(e => LT.ELEMENTS[(LT.ELEMENTS.indexOf(e) + 2) % 8]);
@@ -517,8 +520,35 @@ var LT;
                 this.phase = 'lost';
                 return false;
             }
+            if (d.boss && a.phase === 2 && this.round % 2 === 0) {
+                if (d.family === 0 || d.family === 1) {
+                    a.barrier = Math.round(a.maxhp * .035);
+                    this.line(a.name + '修复了外壳，获得短暂护盾。');
+                }
+                else if (d.family === 2) {
+                    a.weak = a.weak.map(e => LT.ELEMENTS[(LT.ELEMENTS.indexOf(e) + 1) % 8]);
+                    this.line('镜面折转，弱点再次改变。');
+                }
+                else if (d.family === 3 || d.family === 5) {
+                    const n = Math.round(a.maxhp * .025);
+                    a.hp = Math.min(a.maxhp, a.hp + n);
+                    this.event('heal', a, a, n, '汲忆');
+                }
+                else if (d.family === 4) {
+                    alive.forEach(t => t.focus = Math.max(0, t.focus - 1));
+                    this.line('裂面吸走了每位旅人 1 点涌势。');
+                }
+                else if (d.family === 6) {
+                    a.statuses.might = 2;
+                    this.line('炉心过载，下一击会更猛烈。');
+                }
+                else {
+                    alive.forEach(t => t.statuses.slow = 2);
+                    this.line('霜雪延缓了队伍的行动。');
+                }
+            }
             const targets = a.charged ? [...alive] : [alive[this.rng.int(alive.length)]];
-            const mult = a.charged ? 1.85 : a.phase === 2 ? 1.28 : 1;
+            const mult = (a.charged ? 1.7 : a.phase === 2 ? 1.22 : 1) * (a.statuses.might ? 1.2 : 1);
             for (const t of targets) {
                 const element = LT.ELEMENTS[(d.region + d.variant) % 8];
                 this.hurt(t, a, Math.max(4, a.atk * 1.32 - t.def * .43) * mult * (.94 + this.rng.next() * .12), element);
@@ -1371,8 +1401,10 @@ var LT;
             g.translate(q.x, q.y);
             const rng = new LT.RNG(Math.round(p.x * 773 + p.y * 347 + p.variant * 11));
             if (p.type === 'house') {
-                if (s.x > p.x - 1 && s.x < p.x + p.w + 1 && s.y > p.y - 2 && s.y < p.y + p.h)
-                    g.globalAlpha = .66;
+                const foot = this.iso(s.x, s.y);
+                const occluded = Math.abs(foot.x - q.x) < p.w * 36 + 25 && foot.y - q.y > -140 && foot.y - q.y < p.h * 18 + 50 && s.x + s.y < p.x + p.y + p.w + p.h;
+                if (occluded)
+                    g.globalAlpha = .28;
                 const wx = p.w * 36, hy = p.h * 18, H = 64 + (p.variant % 3) * 9;
                 ellipse(g, 15, 56, 95, 24, 'rgba(5,18,24,.28)');
                 polygon(g, [[0, -H], [wx, hy - H], [wx, hy + 48], [0, 48]], tint(palette[3], -26));
@@ -1411,7 +1443,7 @@ var LT;
                     g.globalAlpha *= .6;
                     ellipse(g, 52 + Math.sin(this.time + i) * 4, -H - 82 - i * 14, 8 + i * 3, 5 + i * 2, '#b0b5a2');
                 }
-                g.globalAlpha = s.x > p.x - 1 && s.x < p.x + p.w + 1 && s.y > p.y - 2 && s.y < p.y + p.h ? .66 : 1;
+                g.globalAlpha = occluded ? .28 : 1;
                 for (const side of [-1, 1])
                     for (let i = 0; i < 2; i++) {
                         const x = side * (31 + i * 47), y = Math.abs(x) * .5 - 34;
@@ -3181,7 +3213,7 @@ var LT;
         renderHUD() { if (!['explore', 'dialog'].includes(this.mode)) {
             this.hud.innerHTML = '';
             return;
-        } const act = LT.ACTS[Math.min(4, Math.floor(this.state.bells.length / 2))]; this.hud.innerHTML = `<div class="location"><div class="eyebrow">${this.state.area === 'town' ? 'A PLACE TO RETURN' : this.state.area === 'road' ? 'THE ROAD BETWEEN' : 'WHERE MEMORIES SLEEP'}</div><h2>${this.world.name}</h2><div class="under">${this.world.subtitle}</div></div><div class="hud-tools"><span class="coin">◈ ${this.state.gold}</span>${btn('menu', '舆', 'map', '')}${btn('menu', '记', 'journal', '')}${btn('menu', '队', 'party', '')}${btn('menu', '☷', 'save', '')}</div><div class="world-objective"><strong>${act[0]}　◇ ${this.state.bells.length}/8</strong>${esc(this.objective())}</div><div class="party-hud">${this.state.active.map(id => `<button class="party-card" data-a="menu" data-id="party">${this.partyCard(LT.hero(this.state, id))}</button>`).join('')}</div><div class="control-hint">WASD / 方向键 移动　SHIFT 快行　E / ENTER 交互　M 地图　J 手记　ESC 菜单　点击地面寻路</div>${this.zoneTime > 3.1 ? `<div class="zone-banner"><h2>${this.world.name}</h2><p>${this.world.subtitle}</p></div>` : ''}`; }
+        } const act = LT.ACTS[Math.min(4, Math.floor(this.state.bells.length / 2))]; this.hud.innerHTML = `<div class="location"><div class="eyebrow">${this.state.area === 'town' ? 'A PLACE TO RETURN' : this.state.area === 'road' ? 'THE ROAD BETWEEN' : 'WHERE MEMORIES SLEEP'}</div><h2>${this.world.name}</h2><div class="under">${this.world.subtitle}</div></div><div class="hud-tools"><span class="coin">◈ ${this.state.gold}</span>${btn('menu', '舆', 'map', '')}${btn('menu', '记', 'journal', '')}${btn('menu', '队', 'party', '')}${btn('menu', '存', 'save', '')}</div><div class="world-objective"><strong>${act[0]}　◇ ${this.state.bells.length}/8</strong>${esc(this.objective())}</div><div class="party-hud">${this.state.active.map(id => `<button class="party-card" data-a="menu" data-id="party">${this.partyCard(LT.hero(this.state, id))}</button>`).join('')}</div><div class="control-hint">WASD / 方向键 移动　SHIFT 快行　E / ENTER 交互　M 地图　J 手记　ESC 菜单　点击地面寻路</div>${this.zoneTime > 3.1 ? `<div class="zone-banner"><h2>${this.world.name}</h2><p>${this.world.subtitle}</p></div>` : ''}`; }
         menuShell(title, body, tabs = true) { this.hud.innerHTML = ''; const available = this.returnScreen === 'title' ? [['save', '记录'], ['settings', '设置']] : [['party', '旅人'], ['equipment', '行装'], ['skills', '技艺'], ['inventory', '物品'], ['journal', '手记'], ['map', '舆图'], ['bestiary', '异兽'], ['save', '记录'], ['settings', '设置']]; this.ui.innerHTML = `<section class="modal"><header class="modal-header"><div class="eyebrow">LANTERN TIDES · ${this.state.finished ? 'AFTER THE TIDE' : 'TRAVELER’S COMPANION'}</div><h2>${title}</h2></header>${btn('close', '×', '', 'close')}${tabs ? `<nav class="tabs">${available.map(([id, name]) => btn('tab', name, id, id === this.menu ? 'active' : '')).join('')}${this.menu === 'shop' ? '<span class="gold" style="padding:10px">旅人商会</span>' : ''}</nav>` : '<div class="rule"></div>'}<div class="modal-body">${body}</div></section>`; }
         rosterList() { return `<aside>${this.state.roster.map(h => `<button class="roster-row ${h.id === this.selectedHero ? 'selected' : ''}" data-a="hero" data-id="${h.id}"><div class="portrait" style="${faceStyle(h.id)}"></div><div><b>${LT.HEROES[h.id].name}</b><small>Lv.${h.level} · ${LT.HEROES[h.id].job} · ${this.state.active.includes(h.id) ? '出战' : '后备'}</small></div></button>`).join('')}</aside>`; }
         statsHTML(h) { const st = LT.stats(h); return `<div class="stats">${[['hp', '生命'], ['mp', '灵息'], ['atk', '攻击'], ['mag', '术式'], ['def', '防御'], ['speed', '速度']].map(([k, label]) => `<div><span>${label}</span><b>${st[k]}</b></div>`).join('')}</div>`; }
@@ -3276,7 +3308,7 @@ var LT;
             this.boost = Math.min(this.boost, a?.focus || 0);
             const pendingSkill = this.pending?.type === 'skill' ? LT.skillById(this.pending.id || '') : null;
             const friendly = this.pending?.type === 'item' || !!pendingSkill && ['heal', 'revive', 'shield', 'buff', 'cleanse'].includes(pendingSkill.effect);
-            const enemyPanels = b.actors.filter(t => t.team === 'enemy' && t.hp > 0).map(t => { const p = this.renderer.battlePosition(t, b), size = LT.enemyById(t.enemyId).boss ? 230 : 160; const known = this.state.bestiary[t.enemyId].weak; return `<button class="enemy-panel ${this.pending && !friendly ? 'targeted' : ''}" style="left:${p.x - 100}px;top:${Math.max(78, p.y - size - 57)}px" data-a="target" data-id="${t.key}" ${!ready || !this.pending || friendly ? 'disabled' : ''}><div class="enemy-name">${t.name}</div><div class="bar enemy"><span style="width:${t.hp / t.maxhp * 100}%"></span></div><div class="numbers"><span>HP</span><span>${t.hp} / ${t.maxhp}</span></div><div class="weakness">${t.weak.map(el => `<span class="element" style="color:${known.includes(el) ? LT.ELEMENT_COLOR[el] : '#8c9d98'}">${known.includes(el) ? LT.ELEMENT_NAME[el] : '?'}</span>`).join('')}</div><div class="guard">${t.stagger ? '护势崩解 · 伤害提升' : '◇ 护势 ' + t.guard + ' / ' + t.maxguard}</div><div class="intent ${t.charged ? 'charged' : ''}">${b.intent(t)}</div></button>`; }).join('');
+            const enemyPanels = b.actors.filter(t => t.team === 'enemy' && t.hp > 0).map(t => { const p = this.renderer.battlePosition(t, b), size = LT.enemyById(t.enemyId).boss ? 230 : 160; const known = this.state.bestiary[t.enemyId].weak; return `<button class="enemy-panel ${this.pending && !friendly ? 'targeted' : ''}" style="left:${p.x - 100}px;top:${Math.max(78, p.y - size - 57)}px" data-a="target" data-id="${t.key}" ${!ready || !this.pending || friendly ? 'disabled' : ''}><div class="enemy-name">${t.name}</div><div class="bar enemy"><span style="width:${t.hp / t.maxhp * 100}%"></span></div><div class="numbers"><span>HP</span><span>${t.hp} / ${t.maxhp}</span></div><div class="weakness">${t.weak.map(el => `<span class="element" style="color:${known.includes(el) ? LT.ELEMENT_COLOR[el] : '#8c9d98'}">${known.includes(el) ? LT.ELEMENT_NAME[el] : '?'}</span>`).join('')}</div><div class="guard">${t.stagger ? '护势崩解 · 伤害提升' : (t.recovering ? '稳势 · ' : '◇ 护势 ') + t.guard + ' / ' + t.maxguard}</div><div class="intent ${t.charged ? 'charged' : ''}">${b.intent(t)}</div></button>`; }).join('');
             const turns = [b.current, ...b.queue].filter(key => !!key && b.actor(key)?.hp).slice(0, 7);
             let actions = '<h4>选择行动</h4><p>攻击弱点削减护势。涌势每轮 +1，上限 3。敌人蓄潮时尽快破势，或选择防御。</p>';
             if (!ready)

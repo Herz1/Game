@@ -13,5 +13,89 @@
     "patch": "001-integration.json",
     "file": "src/style.css",
     "status": "already-applied"
+  },
+  "053d57673c2ef53bc57f89d5f4cd9ee999aadb6d9cbf98df0843210ec1d1f3a0": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "c68bb5262420533d"
+  },
+  "887efc2452bbaf5b8e3d0aadfc9f5fef9c455ce9b46d4129beaee92e89e0b70f": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "6dfae776ecf2b841"
+  },
+  "84743ce3c7a192a8f35b3e53db40c4e1b955858f63f9a62914d09277f68fe436": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "c13f36ec9c3a84e8"
+  },
+  "f54f94a4821538eda42a4f4764ea124dd57ba85f16f5b9deaf8f97e4b7f99403": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "5542ec837fe58d4d"
+  },
+  "f46171ae02c0ebfc7395e430039b3a68a8ff9d1fff0063b3a0e935c6730c25a7": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "56b20fa09895e089"
+  },
+  "1b989eca5a72ee60b530871f152332ef817bb54ab95754994953cbe36c223f13": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "e3993c06a30abcb2"
+  },
+  "4d043ff4168e0810ddd4ef568a1158355d6b3cea79db554b5c76d12f24f36ee5": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "4f53a74035b32f1b"
+  },
+  "b86fc4e642420e79e016bbfb5e707e308cf0a5bdb7cbd3731328e889595af61b": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "f522e007a13f986f"
+  },
+  "48eeae812edbb5623245b1a7e40a1114b52516bd45bc20b62c610a62436ee991": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/core.ts",
+    "status": "applied",
+    "before_sha256": "119e1700aeb93fb4"
+  },
+  "0fc79b88597ec793b81fcb0f39407d237354d4d7659f2513cd8910e43a1c83e1": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "22fc715f9ae079aa"
+  },
+  "40cd5810a902e924a6cdd778730adbb899ccb7fba74fcc730be6b42fc3746911": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/render.ts",
+    "status": "applied",
+    "before_sha256": "cd280ee2270c2ed2"
+  },
+  "3a79cce3e171603ebd75801ac079024eaef68cd8231c3e466bb029fc7f454820": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/app.ts",
+    "status": "applied",
+    "before_sha256": "dd7fb7f5f94d8ffd"
+  },
+  "80d9aa461d803c4cdc732b94aaf02287faf59419df254631fbbac03563d90202": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/app.ts",
+    "status": "applied",
+    "before_sha256": "f741cf45a3f6f5d3"
+  },
+  "f8fefe896a8715431b8ae08444d95d6d4bf64b7c7de7b3c6e51cb69eb7c6d50a": {
+    "patch": "002-balance-and-occlusion.json",
+    "file": "src/content.ts",
+    "status": "applied",
+    "before_sha256": "05261fa58996ff03"
   }
 }

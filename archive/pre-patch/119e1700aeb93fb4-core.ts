@@ -128,7 +128,7 @@ namespace LT {
         else {alive.forEach(t=>t.statuses.slow=2);this.line('霜雪延缓了队伍的行动。');}
       }
       const targets=a.charged?[...alive]:[alive[this.rng.int(alive.length)]];
-      const mult=(a.charged?1.7:a.phase===2?1.22:1)*(a.statuses.might?1.2:1);
+      const mult=a.charged?1.85:a.phase===2?1.28:1;
       for(const t of targets){const element=ELEMENTS[(d.region+d.variant)%8];this.hurt(t,a,Math.max(4,a.atk*1.32-t.def*.43)*mult*(.94+this.rng.next()*.12),element);if(t.hp>0&&(d.variant===5||d.elite)&&this.rng.next()<.3){t.statuses.poison=3;this.event('status',t,a,0,'蚀毒');}}
       this.line(a.name+(a.charged?'释放了大潮横扫！':'发动袭击。'));a.charged=false;this.next();return true;
     }

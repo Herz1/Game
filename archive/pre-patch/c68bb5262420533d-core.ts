@@ -40,17 +40,17 @@ namespace LT {
   export function useFieldItem(s:State,id:string,hid:number):boolean {const it=itemById(id);if(!it||!it.use||!(s.bag[id]>0))return false;const h=hero(s,hid),st=stats(h);if(it.use==='camp'){healParty(s);}else if(it.use==='heal'&&h.hp>0&&h.hp<st.hp)h.hp=Math.min(st.hp,h.hp+Math.ceil(st.hp*(it.power||0)));else if(it.use==='mana'&&h.hp>0&&h.mp<st.mp)h.mp=Math.min(st.mp,h.mp+Math.ceil(st.mp*(it.power||0)));else if(it.use==='revive'&&h.hp===0)h.hp=Math.ceil(st.hp*(it.power||.4));else return false;s.bag[id]--;return true;}
   export function questReady(s:State,q:Quest):boolean {return q.kind==='clue'?s.evidence.includes(q.id):q.kind==='hunt'?(s.kills[q.region]||0)>=3:q.kind==='bell'?s.bells.includes(q.region):!!s.flags[`mail:${(q.region+1)%8}`];}
   export function finishQuest(s:State,id:string):boolean {const q=QUESTS.find(x=>x.id===id);if(!q||!s.accepted.includes(id)||s.completed.includes(id)||!questReady(s,q))return false;s.completed.push(id);s.gold+=q.reward;s.bag.tea=(s.bag.tea||0)+2;s.roster.forEach(h=>{gainXP(h,50+s.bells.length*10);h.jp+=2;});return true;}
-  export interface Actor {key:string;team:'hero'|'enemy';heroId:number;enemyId:string;name:string;level:number;hp:number;maxhp:number;mp:number;maxmp:number;atk:number;mag:number;def:number;speed:number;focus:number;guard:number;maxguard:number;weak:Element[];statuses:Partial<Record<Status,number>>;barrier:number;stagger:boolean;phase:number;charged:boolean;defending:boolean;recovering:boolean;}
+  export interface Actor {key:string;team:'hero'|'enemy';heroId:number;enemyId:string;name:string;level:number;hp:number;maxhp:number;mp:number;maxmp:number;atk:number;mag:number;def:number;speed:number;focus:number;guard:number;maxguard:number;weak:Element[];statuses:Partial<Record<Status,number>>;barrier:number;stagger:boolean;phase:number;charged:boolean;defending:boolean;}
   export interface BattleEvent {kind:'hit'|'heal'|'break'|'status'|'text';target:string;source:string;amount:number;text:string;element?:Element;}
   export interface Action {type:'attack'|'skill'|'item'|'defend'|'escape';id?:string;target?:string;boost?:number;}
   export class Battle {
     actors:Actor[]=[];queue:string[]=[];current='';round=0;phase:'choose'|'enemy'|'won'|'lost'|'escaped'='choose';events:BattleEvent[]=[];log:string[]=[];rng:RNG;rewarded=false;ids:string[];mandatory:boolean;before:State;
     constructor(public state:State,ids:string[],seed=state.seed) {
       this.ids=[...ids];this.rng=new RNG(seed);this.before=clone(state);this.mandatory=ids.some(id=>enemyById(id)?.boss&&!enemyById(id)?.elite);
-      for(const id of state.active){const h=hero(state,id),st=stats(h);this.actors.push({key:`h${id}`,team:'hero',heroId:id,enemyId:'',name:HEROES[id].name,level:h.level,hp:h.hp,maxhp:st.hp,mp:h.mp,maxmp:st.mp,atk:st.atk,mag:st.mag,def:st.def,speed:st.speed,focus:0,guard:0,maxguard:0,weak:[],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false,recovering:false});}
+      for(const id of state.active){const h=hero(state,id),st=stats(h);this.actors.push({key:`h${id}`,team:'hero',heroId:id,enemyId:'',name:HEROES[id].name,level:h.level,hp:h.hp,maxhp:st.hp,mp:h.mp,maxmp:st.mp,atk:st.atk,mag:st.mag,def:st.def,speed:st.speed,focus:0,guard:0,maxguard:0,weak:[],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false});}
       const level=Math.max(1,1+state.bells.length*2);
       const diff=state.settings.difficulty==='story'?.72:state.settings.difficulty==='hard'?1.2:1;
-      ids.forEach((id,i)=>{const d=enemyById(id);if(!d)throw new Error('Unknown enemy '+id);const boss=d.boss;const partyScale=boss?Math.max(.65,state.active.length*.63):1;const hp=Math.round((boss?160+level*32:48+d.variant*11+level*17)*partyScale*diff*(d.elite?1.2:1)*(boss?2.1+level*.18:1.45+level*.16));this.actors.push({key:`e${i}`,team:'enemy',heroId:-1,enemyId:id,name:d.name,level,hp,maxhp:hp,mp:999,maxmp:999,atk:Math.round((boss?15+level*3.3:11+level*2.9+d.variant)*diff),mag:Math.round((boss?17+level*3.4:10+level*3)*diff),def:7+level*2,speed:10+level*.65+d.variant,focus:0,guard:d.guard,maxguard:d.guard,weak:[...d.weak],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false,recovering:false});const seen=state.bestiary[id]||(state.bestiary[id]={seen:0,kills:0,weak:[]});seen.seen++;});
+      ids.forEach((id,i)=>{const d=enemyById(id);if(!d)throw new Error('Unknown enemy '+id);const boss=d.boss;const partyScale=boss?Math.max(.65,state.active.length*.63):1;const hp=Math.round((boss?160+level*32:48+d.variant*11+level*17)*partyScale*diff*(d.elite?1.2:1));this.actors.push({key:`e${i}`,team:'enemy',heroId:-1,enemyId:id,name:d.name,level,hp,maxhp:hp,mp:999,maxmp:999,atk:Math.round((boss?15+level*3.3:11+level*2.9+d.variant)*diff),mag:Math.round((boss?17+level*3.4:10+level*3)*diff),def:7+level*2,speed:10+level*.65+d.variant,focus:0,guard:d.guard,maxguard:d.guard,weak:[...d.weak],statuses:{},barrier:0,stagger:false,phase:1,charged:false,defending:false});const seen=state.bestiary[id]||(state.bestiary[id]={seen:0,kills:0,weak:[]});seen.seen++;});
       this.line('察看弱点，积蓄涌势。在破绽出现时一击决定胜负。');this.next();
     }
     actor(key=this.current):Actor|undefined{return this.actors.find(a=>a.key===key);}
@@ -63,16 +63,16 @@ namespace LT {
       if(!this.queue.length){this.round++;this.living('hero').forEach(a=>a.focus=Math.min(3,a.focus+1));this.queue=this.actors.filter(a=>a.hp>0).sort((a,b)=>b.speed*(b.statuses.slow?.7:1)-a.speed*(a.statuses.slow?.7:1)||a.key.localeCompare(b.key)).map(a=>a.key);}
       const key=this.queue.shift()!;const a=this.actor(key)!;if(a.hp<=0){this.next();return;}
       this.current=key;a.defending=false;
-      if(a.stagger){a.stagger=false;a.guard=a.maxguard;a.recovering=a.team==='enemy'&&!!enemyById(a.enemyId)?.boss;this.line(a.name+'失去行动，重新站稳。');this.event('status',a,a,0,'护势重整');this.current='';this.next();return;}
+      if(a.stagger){a.stagger=false;a.guard=a.maxguard;this.line(a.name+'失去行动，重新站稳。');this.event('status',a,a,0,'护势重整');this.current='';this.next();return;}
       if(a.statuses.poison){const dot=Math.min(a.hp,Math.ceil(a.maxhp*(a.team==='enemy'&&enemyById(a.enemyId)?.boss?.025:.055)));a.hp-=dot;this.event('hit',a,a,dot,'蚀毒');if(a.hp<=0){this.next();return;}}
       if(a.statuses.regen){const n=Math.min(a.maxhp-a.hp,Math.ceil(a.maxhp*.09));a.hp+=n;this.event('heal',a,a,n,'再生');}
       if(a.team==='hero'){const h=hero(this.state,a.heroId);if(h.learned.includes(`p${h.id}_1`))a.mp=Math.min(a.maxmp,a.mp+2);if(h.learned.includes(`p${h.id}_3`))a.hp=Math.min(a.maxhp,a.hp+Math.ceil(a.maxhp*.04));}
       for(const k of Object.keys(a.statuses) as Status[]){a.statuses[k]=(a.statuses[k]||1)-1;if(!a.statuses[k])delete a.statuses[k];}
       this.phase=a.team==='hero'?'choose':'enemy';
     }
-    intent(a:Actor):string {if(a.stagger)return '破绽 · 下次行动跳过';if(a.charged)return '大潮横扫 · 全体';if(a.recovering)return '稳势 · 下次行动前不可再破势';if(enemyById(a.enemyId)?.boss&&this.round%3===0)return '蓄潮 · 准备强击';return a.phase===2?'狂澜 · 强击':'袭击 · 单体';}
+    intent(a:Actor):string {if(a.stagger)return '破绽 · 下次行动跳过';if(a.charged)return '大潮横扫 · 全体';if(enemyById(a.enemyId)?.boss&&this.round%3===0)return '蓄潮 · 准备强击';return a.phase===2?'狂澜 · 强击':'袭击 · 单体';}
     discover(t:Actor,element:Element):void{if(t.team==='enemy'){const b=this.state.bestiary[t.enemyId];if(!b.weak.includes(element))b.weak.push(element);}}
-    pressure(t:Actor,a:Actor,n:number):void{if(t.team!=='enemy'||t.stagger||t.recovering||t.hp<=0)return;t.guard=Math.max(0,t.guard-n);if(!t.guard){t.stagger=true;t.charged=false;this.line(t.name+'的护势崩解！');this.event('break',t,a,0,'BREAK');}}
+    pressure(t:Actor,a:Actor,n:number):void{if(t.team!=='enemy'||t.stagger||t.hp<=0)return;t.guard=Math.max(0,t.guard-n);if(!t.guard){t.stagger=true;t.charged=false;this.line(t.name+'的护势崩解！');this.event('break',t,a,0,'BREAK');}}
     hurt(t:Actor,a:Actor,amount:number,element:Element,weak=false):void {
       let damage=Math.max(1,Math.round(amount*(t.stagger?1.55:1)*(t.defending?.43:1)*(t.statuses.ward?.7:1)));
       const block=Math.min(t.barrier,damage);t.barrier-=block;damage-=block;t.hp=Math.max(0,t.hp-damage);this.event('hit',t,a,damage,weak?'WEAK':'',element);
@@ -115,20 +115,12 @@ namespace LT {
       this.next();return true;
     }
     enemyTurn():boolean {
-      const a=this.actor();if(this.phase!=='enemy'||!a)return false;const d=enemyById(a.enemyId)!;a.recovering=false;
+      const a=this.actor();if(this.phase!=='enemy'||!a)return false;const d=enemyById(a.enemyId)!;
       if(d.boss&&a.phase===1&&a.hp<=a.maxhp*.5){a.phase=2;a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+2)%8]);a.guard=a.maxguard;this.line(a.name+'改变了姿态，弱点发生变化。');this.event('status',a,a,0,'换相');}
       if(d.boss&&this.round%3===0&&!a.charged){a.charged=true;this.line(a.name+'开始蓄潮！尽快破势，或让全员防御。');this.event('status',a,a,0,'蓄潮');this.next();return true;}
       const alive=this.living('hero');if(!alive.length){this.phase='lost';return false;}
-      if(d.boss&&a.phase===2&&this.round%2===0){
-        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.035);this.line(a.name+'修复了外壳，获得短暂护盾。');}
-        else if(d.family===2){a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+1)%8]);this.line('镜面折转，弱点再次改变。');}
-        else if(d.family===3||d.family===5){const n=Math.round(a.maxhp*.025);a.hp=Math.min(a.maxhp,a.hp+n);this.event('heal',a,a,n,'汲忆');}
-        else if(d.family===4){alive.forEach(t=>t.focus=Math.max(0,t.focus-1));this.line('裂面吸走了每位旅人 1 点涌势。');}
-        else if(d.family===6){a.statuses.might=2;this.line('炉心过载，下一击会更猛烈。');}
-        else {alive.forEach(t=>t.statuses.slow=2);this.line('霜雪延缓了队伍的行动。');}
-      }
       const targets=a.charged?[...alive]:[alive[this.rng.int(alive.length)]];
-      const mult=(a.charged?1.7:a.phase===2?1.22:1)*(a.statuses.might?1.2:1);
+      const mult=a.charged?1.85:a.phase===2?1.28:1;
       for(const t of targets){const element=ELEMENTS[(d.region+d.variant)%8];this.hurt(t,a,Math.max(4,a.atk*1.32-t.def*.43)*mult*(.94+this.rng.next()*.12),element);if(t.hp>0&&(d.variant===5||d.elite)&&this.rng.next()<.3){t.statuses.poison=3;this.event('status',t,a,0,'蚀毒');}}
       this.line(a.name+(a.charged?'释放了大潮横扫！':'发动袭击。'));a.charged=false;this.next();return true;
     }

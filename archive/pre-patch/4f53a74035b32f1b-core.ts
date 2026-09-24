@@ -115,20 +115,12 @@ namespace LT {
       this.next();return true;
     }
     enemyTurn():boolean {
-      const a=this.actor();if(this.phase!=='enemy'||!a)return false;const d=enemyById(a.enemyId)!;a.recovering=false;
+      const a=this.actor();if(this.phase!=='enemy'||!a)return false;const d=enemyById(a.enemyId)!;
       if(d.boss&&a.phase===1&&a.hp<=a.maxhp*.5){a.phase=2;a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+2)%8]);a.guard=a.maxguard;this.line(a.name+'改变了姿态，弱点发生变化。');this.event('status',a,a,0,'换相');}
       if(d.boss&&this.round%3===0&&!a.charged){a.charged=true;this.line(a.name+'开始蓄潮！尽快破势，或让全员防御。');this.event('status',a,a,0,'蓄潮');this.next();return true;}
       const alive=this.living('hero');if(!alive.length){this.phase='lost';return false;}
-      if(d.boss&&a.phase===2&&this.round%2===0){
-        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.035);this.line(a.name+'修复了外壳，获得短暂护盾。');}
-        else if(d.family===2){a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+1)%8]);this.line('镜面折转，弱点再次改变。');}
-        else if(d.family===3||d.family===5){const n=Math.round(a.maxhp*.025);a.hp=Math.min(a.maxhp,a.hp+n);this.event('heal',a,a,n,'汲忆');}
-        else if(d.family===4){alive.forEach(t=>t.focus=Math.max(0,t.focus-1));this.line('裂面吸走了每位旅人 1 点涌势。');}
-        else if(d.family===6){a.statuses.might=2;this.line('炉心过载，下一击会更猛烈。');}
-        else {alive.forEach(t=>t.statuses.slow=2);this.line('霜雪延缓了队伍的行动。');}
-      }
       const targets=a.charged?[...alive]:[alive[this.rng.int(alive.length)]];
-      const mult=(a.charged?1.7:a.phase===2?1.22:1)*(a.statuses.might?1.2:1);
+      const mult=a.charged?1.85:a.phase===2?1.28:1;
       for(const t of targets){const element=ELEMENTS[(d.region+d.variant)%8];this.hurt(t,a,Math.max(4,a.atk*1.32-t.def*.43)*mult*(.94+this.rng.next()*.12),element);if(t.hp>0&&(d.variant===5||d.elite)&&this.rng.next()<.3){t.statuses.poison=3;this.event('status',t,a,0,'蚀毒');}}
       this.line(a.name+(a.charged?'释放了大潮横扫！':'发动袭击。'));a.charged=false;this.next();return true;
     }

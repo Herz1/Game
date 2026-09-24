@@ -124,7 +124,7 @@ namespace LT {
         polygon(g,[[-6,-H-64],[0,-H-70],[wx+17,hy-H-4],[wx+11,hy-H+1]],'#9b8c6a');
         if(r===7){polygon(g,[[-wx-12,hy-H-6],[0,-H-66],[wx+10,hy-H-7],[3,hy-H+16]],'#c4cec8');}
         polygon(g,[[39,-H-18],[51,-H-24],[51,-H-70],[39,-H-65]],'#928b76');polygon(g,[[51,-H-24],[62,-H-18],[62,-H-64],[51,-H-70]],'#5b665f');
-        for(let i=0;i<4;i++){g.globalAlpha*=.6;ellipse(g,52+Math.sin(this.time+i)*4,-H-82-i*14,8+i*3,5+i*2,'#b0b5a2');}g.globalAlpha=occluded?.28:1;
+        for(let i=0;i<4;i++){g.globalAlpha*=.6;ellipse(g,52+Math.sin(this.time+i)*4,-H-82-i*14,8+i*3,5+i*2,'#b0b5a2');}g.globalAlpha=s.x>p.x-1&&s.x<p.x+p.w+1&&s.y>p.y-2&&s.y<p.y+p.h?.66:1;
         for(const side of [-1,1])for(let i=0;i<2;i++){const x=side*(31+i*47),y=Math.abs(x)*.5-34;polygon(g,[[x-12,y-21],[x+12,y-21+side*12],[x+12,y+7+side*12],[x-12,y+7]],'#48483e');polygon(g,[[x-9,y-17],[x+9,y-17+side*9],[x+9,y+4+side*9],[x-9,y+4]],'#edbd78');g.strokeStyle='#785e42';g.lineWidth=2;g.beginPath();g.moveTo(x,y-16+side*4);g.lineTo(x,y+5+side*4);g.stroke();glow(g,x,y+side*5,30,'246,184,95',.18);}
         polygon(g,[[-14,12],[-14,-21],[0,-28],[14,-14],[14,41],[0,48],[-14,41]],'#39453e');polygon(g,[[-9,15],[-9,-15],[0,-20],[8,-10],[8,37],[0,42],[-9,37]],'#735c44');rect(g,3,12,2,3,'#dfbe72');
         polygon(g,[[-25,44],[0,57],[25,44],[25,51],[0,66],[-25,52]],'#a59a7c');

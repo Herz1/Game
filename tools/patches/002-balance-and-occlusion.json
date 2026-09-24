@@ -1,0 +1,16 @@
+[
+{"file":"src/core.ts","before":"charged:boolean;defending:boolean;","after":"charged:boolean;defending:boolean;recovering:boolean;"},
+{"file":"src/core.ts","before":"charged:false,defending:false","after":"charged:false,defending:false,recovering:false","count":2},
+{"file":"src/core.ts","before":"*partyScale*diff*(d.elite?1.2:1)","after":"*partyScale*diff*(d.elite?1.2:1)*(boss?2.1+level*.18:1.45+level*.16)"},
+{"file":"src/core.ts","before":"a.stagger=false;a.guard=a.maxguard;","after":"a.stagger=false;a.guard=a.maxguard;a.recovering=a.team==='enemy'&&!!enemyById(a.enemyId)?.boss;"},
+{"file":"src/core.ts","before":"if(t.team!=='enemy'||t.stagger||t.hp<=0)return;","after":"if(t.team!=='enemy'||t.stagger||t.recovering||t.hp<=0)return;"},
+{"file":"src/core.ts","before":"if(a.charged)return '大潮横扫 · 全体';","after":"if(a.charged)return '大潮横扫 · 全体';if(a.recovering)return '稳势 · 下次行动前不可再破势';"},
+{"file":"src/core.ts","before":"const d=enemyById(a.enemyId)!;\n      if(d.boss","after":"const d=enemyById(a.enemyId)!;a.recovering=false;\n      if(d.boss"},
+{"file":"src/core.ts","before":"const targets=a.charged?[...alive]:[alive[this.rng.int(alive.length)]];","after":"if(d.boss&&a.phase===2&&this.round%2===0){\n        if(d.family===0||d.family===1){a.barrier=Math.round(a.maxhp*.035);this.line(a.name+'修复了外壳，获得短暂护盾。');}\n        else if(d.family===2){a.weak=a.weak.map(e=>ELEMENTS[(ELEMENTS.indexOf(e)+1)%8]);this.line('镜面折转，弱点再次改变。');}\n        else if(d.family===3||d.family===5){const n=Math.round(a.maxhp*.025);a.hp=Math.min(a.maxhp,a.hp+n);this.event('heal',a,a,n,'汲忆');}\n        else if(d.family===4){alive.forEach(t=>t.focus=Math.max(0,t.focus-1));this.line('裂面吸走了每位旅人 1 点涌势。');}\n        else if(d.family===6){a.statuses.might=2;this.line('炉心过载，下一击会更猛烈。');}\n        else {alive.forEach(t=>t.statuses.slow=2);this.line('霜雪延缓了队伍的行动。');}\n      }\n      const targets=a.charged?[...alive]:[alive[this.rng.int(alive.length)]];"},
+{"file":"src/core.ts","before":"const mult=a.charged?1.85:a.phase===2?1.28:1;","after":"const mult=(a.charged?1.7:a.phase===2?1.22:1)*(a.statuses.might?1.2:1);"},
+{"file":"src/render.ts","before":"if(s.x>p.x-1&&s.x<p.x+p.w+1&&s.y>p.y-2&&s.y<p.y+p.h)g.globalAlpha=.66;","after":"const foot=this.iso(s.x,s.y);const occluded=Math.abs(foot.x-q.x)<p.w*36+25&&foot.y-q.y> -140&&foot.y-q.y<p.h*18+50&&s.x+s.y<p.x+p.y+p.w+p.h; if(occluded)g.globalAlpha=.28;"},
+{"file":"src/render.ts","before":"g.globalAlpha=s.x>p.x-1&&s.x<p.x+p.w+1&&s.y>p.y-2&&s.y<p.y+p.h?.66:1;","after":"g.globalAlpha=occluded?.28:1;"},
+{"file":"src/app.ts","before":"t.stagger?'护势崩解 · 伤害提升':'◇ 护势 '+t.guard+' / '+t.maxguard","after":"t.stagger?'护势崩解 · 伤害提升':(t.recovering?'稳势 · ':'◇ 护势 ')+t.guard+' / '+t.maxguard"},
+{"file":"src/app.ts","before":"btn('menu','☷','save','')","after":"btn('menu','存','save','')"},
+{"file":"src/content.ts","before":"护势归零后，敌人失去下一次行动，期间受到更多伤害。","after":"护势归零后，敌人失去下一次行动，期间受到更多伤害。Boss重整后获得稳势，直到完成一次行动前不会再次被破势，不能永久控制。"}
+]

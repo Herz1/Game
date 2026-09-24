@@ -1,0 +1,17 @@
+{
+  "2f37e7e5a987a10577b38300a0f6c69fc01bf92c4052ac55e4e5d0bc2f4db76f": {
+    "patch": "001-integration.json",
+    "file": "src/app.ts",
+    "status": "already-applied"
+  },
+  "dad2a9b6fa97e14044e95f7ff12d633ca8d8cb45e40af7db5f5c9ba67004205e": {
+    "patch": "001-integration.json",
+    "file": "src/app.ts",
+    "status": "already-applied"
+  },
+  "6ae4be1a375637ada64f72dd568db3dded012b57eaa868842b5efc506287fcf3": {
+    "patch": "001-integration.json",
+    "file": "src/style.css",
+    "status": "already-applied"
+  }
+}

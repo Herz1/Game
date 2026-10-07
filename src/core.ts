@@ -148,32 +148,62 @@ namespace LT {
   export function decodeSave(raw:string):State {
     if(raw.length>2000000)throw new Error('存档过大。');
     const envelope=JSON.parse(raw) as Record<string,unknown>;
+    if(!envelope||typeof envelope!=='object'||Array.isArray(envelope))throw new Error('存档结构错误。');
     let o:unknown;
     if(typeof envelope.payload==='string'){if(envelope.checksum!==checksum(envelope.payload))throw new Error('存档校验失败，原存档未被覆盖。');o=JSON.parse(envelope.payload);}else if(envelope.version===1)o=envelope;else throw new Error('无法识别的存档格式。');
     if(!o||typeof o!=='object')throw new Error('存档结构错误。');
     const s=o as State;
+    // Version 1 did not require optional-world progress and settings fields.
+    if(s.version===1){s.relics??=[];s.puzzles??={};s.finished??=false;s.ending??='';s.settings={...DEFAULT_SETTINGS,...s.settings};}
     if(![1,VERSION].includes(s.version)||!Number.isInteger(s.start)||s.start<0||s.start>7||!Number.isInteger(s.region)||s.region<0||s.region>8)throw new Error('地区数据错误。');
     if(!['town','road','dungeon','inn','shop','final'].includes(s.area))throw new Error('场景数据错误。');
+    if((s.region===8)!==(s.area==='final'))throw new Error('地区与场景不匹配。');
     if(!Array.isArray(s.roster)||s.roster.length<1||s.roster.length>8||!Array.isArray(s.active)||s.active.length<1||s.active.length>4)throw new Error('队伍数据错误。');
+    if(s.roster.some(h=>!h||typeof h!=='object'))throw new Error('旅人数据错误。');
     if(unique(s.roster.map(h=>h.id)).length!==s.roster.length||unique(s.active).length!==s.active.length)throw new Error('旅人编号重复。');
     for(const h of s.roster){if(!Number.isInteger(h.id)||!HEROES[h.id]||!Number.isInteger(h.level)||h.level<1||h.level>30||!Array.isArray(h.learned)||!h.learned.every(id=>!!skillById(id)))throw new Error('旅人数据错误。');for(const k of ['hp','mp','xp','jp'] as const)if(!Number.isFinite(h[k])||h[k]<0)throw new Error('旅人数值错误。');for(const k of ['weapon','armor','charm'] as const){if(h[k]&&itemById(h[k])?.kind!==k)throw new Error('装备数据错误。');}if(!Number.isInteger(h.secondary)||h.secondary< -1||h.secondary>7)h.secondary=-1;const st=stats(h);h.hp=Math.min(st.hp,h.hp);h.mp=Math.min(st.mp,h.mp);}
     if(!s.active.every(id=>s.roster.some(h=>h.id===id)))throw new Error('存在未招募的出战旅人。');
+    for(const h of s.roster){if(h.learned.some(id=>skillById(id)!.owner!==h.id)||unique(h.learned).length!==h.learned.length)throw new Error('技艺数据错误。');if(h.secondary===h.id||h.secondary!==-1&&!s.roster.some(other=>other.id===h.secondary))throw new Error('副职数据错误。');}
     if(!Number.isFinite(s.gold)||s.gold<0||s.gold>100000000||!s.bag||typeof s.bag!=='object')throw new Error('物品数据错误。');
     for(const [id,n] of Object.entries(s.bag))if(!itemById(id)||!Number.isInteger(n)||n<0||n>99999)throw new Error('物品数据错误。');
     for(const key of ['bells','visited','relics'] as const)if(!Array.isArray(s[key])||!s[key].every(n=>Number.isInteger(n)&&n>=0&&n<(key==='relics'?4:8)))throw new Error('进度数据错误。');
     for(const key of ['accepted','completed','evidence','opened'] as const)if(!Array.isArray(s[key])||!s[key].every(x=>typeof x==='string'&&x.length<100))throw new Error('任务数据错误。');
     if(!s.accepted.every(id=>QUESTS.some(q=>q.id===id))||!s.completed.every(id=>s.accepted.includes(id)))throw new Error('任务依赖错误。');
     for(const k of ['flags','kills','bestiary','puzzles'] as const)if(!s[k]||typeof s[k]!=='object'||Array.isArray(s[k]))throw new Error('世界数据错误。');
+    if(Object.values(s.flags).some(v=>typeof v!=='boolean'))throw new Error('旗标数据错误。');
+    for(const [id,n] of Object.entries(s.kills))if(!/^[0-8]$/.test(id)||!Number.isSafeInteger(n)||n<0)throw new Error('战斗记录错误。');
+    for(const [id,n] of Object.entries(s.puzzles))if(!/^(?:[0-7]:dungeon|8:final)$/.test(id)||!Number.isInteger(n)||n<0||n>3)throw new Error('机关数据错误。');
+    for(const key of ['bells','visited','relics','accepted','completed','evidence','opened'] as const)if(new Set(s[key]).size!==s[key].length)throw new Error('进度记录重复。');
     for(const [id,b] of Object.entries(s.bestiary))if(!enemyById(id)||!b||!Number.isFinite(b.seen)||!Number.isFinite(b.kills)||!Array.isArray(b.weak)||!b.weak.every(e=>ELEMENTS.includes(e)))throw new Error('图鉴数据错误。');
     if(!Number.isFinite(s.x)||!Number.isFinite(s.y))throw new Error('坐标数据错误。');s.x=clamp(s.x,1,30);s.y=clamp(s.y,1,26);
     const se={...DEFAULT_SETTINGS,...s.settings};se.music=clamp(Number.isFinite(se.music)?se.music:.35,0,1);se.sfx=clamp(Number.isFinite(se.sfx)?se.sfx:.55,0,1);se.speed=clamp(Number.isFinite(se.speed)?se.speed:1,.5,3);se.textSpeed=clamp(Number.isFinite(se.textSpeed)?se.textSpeed:32,8,120);if(!['story','normal','hard'].includes(se.difficulty))se.difficulty='normal';s.settings=se;s.time=Number.isFinite(s.time)?Math.max(0,s.time):0;s.steps=Number.isFinite(s.steps)?Math.max(0,s.steps):0;s.seed=s.seed>>>0||1;s.version=VERSION;s.finished=!!s.finished;s.ending=typeof s.ending==='string'?s.ending:'';s.name=TITLE;return s;
   }
   export interface StorageLike {getItem(key:string):string|null;setItem(key:string,value:string):void;removeItem(key:string):void;}
   export class SaveStore {
+    recovered=false;
     constructor(public storage:StorageLike){}
     key(slot:number):string{if(!Number.isInteger(slot)||slot<0||slot>3)throw new Error('存档位无效。');return 'lantern-tides:v2:slot'+slot;}
-    write(slot:number,s:State):void{const key=this.key(slot),text=encodeSave(s);decodeSave(text);this.storage.setItem(key+':pending',text);const check=this.storage.getItem(key+':pending');if(check!==text)throw new Error('存储未能写入。');this.storage.setItem(key,text);this.storage.removeItem(key+':pending');}
-    read(slot:number):State|null{const text=this.storage.getItem(this.key(slot));return text?decodeSave(text):null;}
+    write(slot:number,s:State):void {
+      const key=this.key(slot),text=encodeSave(s);decodeSave(text);
+      // Keep the last valid committed value until the new value is verified.
+      const old=this.storage.getItem(key);
+      if(old){try{decodeSave(old);this.storage.setItem(key+':backup',old);}catch(error){if(error instanceof Error&&error.name==='QuotaExceededError')throw error;}}
+      this.storage.setItem(key+':pending',text);
+      if(this.storage.getItem(key+':pending')!==text)throw new Error('存储未能写入。');
+      this.storage.setItem(key,text);
+      if(this.storage.getItem(key)!==text)throw new Error('存储未能写入。');
+      // A cleanup failure must not report a committed save as lost.
+      try{this.storage.removeItem(key+':pending');}catch{/* Read prefers the verified committed value. */}
+    }
+    read(slot:number):State|null {
+      const key=this.key(slot);this.recovered=false;let found=false;
+      for(const suffix of ['',':pending',':backup']){
+        const text=this.storage.getItem(key+suffix);if(!text)continue;found=true;
+        try{const state=decodeSave(text);this.recovered=suffix!=='';return state;}catch{/* Try an independently validated recovery record; never overwrite while reading. */}
+      }
+      if(found)throw new Error('存档及恢复副本均无法读取。请导入导出的备份；原记录已保留。');
+      return null;
+    }
     summary(slot:number):string{try{const s=this.read(slot);return s?`${HEROES[s.start].name} · ${s.region===8?'静潮中枢':REGIONS[s.region].name} · 潮铃 ${s.bells.length}/8 · ${Math.floor(s.time/60)} 分钟${s.finished?' · 通关':''}`:'尚未写下的旅途';}catch{return '存档损坏 · 可导入备份或覆盖';}}
   }
 }

@@ -12,6 +12,9 @@ const css = read('src/style.css');
 const assets = {};
 const embeddedPath = path.join(root, 'assets/processed/embedded.json');
 if (fs.existsSync(embeddedPath)) Object.assign(assets, JSON.parse(fs.readFileSync(embeddedPath, 'utf8')));
+const titlePath = path.join(root, 'assets/processed/embedded-title.json');
+if (fs.existsSync(titlePath)) Object.assign(assets, JSON.parse(fs.readFileSync(titlePath, 'utf8')));
+for (const id of ['title', ...Array.from({length:8}, (_,i)=>'portrait'+i)]) if (!assets[id]) throw new Error('Required embedded artwork missing: '+id);
 const candidates = [['title','assets/processed/title.webp'], ...Array.from({length:8}, (_,i)=>['portrait'+i,`assets/processed/portraits/hero-${i}.webp`])];
 for (const [id, file] of candidates) {const p=path.join(root,file);if(fs.existsSync(p))assets[id]='data:image/webp;base64,'+fs.readFileSync(p).toString('base64');}
 for (const [id,value] of Object.entries(assets)) if(!/^data:image\/(webp|png|jpeg);base64,[A-Za-z0-9+/=]+$/.test(value)) throw new Error('Invalid embedded image: '+id);

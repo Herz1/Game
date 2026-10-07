@@ -1,0 +1,24 @@
+{
+  "uncommitted": [
+    " M archive/applied-patches.json",
+    " M build/data/content.json",
+    " M build/data/maps.json",
+    " M build/qa/engine-tests.json",
+    " M build/release/BUILD-MANIFEST.json",
+    " M build/release/index.html",
+    " M build/runtime.js",
+    " M package-lock.json",
+    " M package.json",
+    " M src/app.ts",
+    " M src/audio.ts",
+    " M src/content.ts",
+    " M src/core.ts",
+    " M src/render.ts",
+    " M src/style.css",
+    " M src/world.ts",
+    " M tools/build.cjs"
+  ],
+  "processNotes": "No server or browser launched. All owned exec sessions finished, including npm installs, build, tests and typecheck. Do not terminate unrelated node processes.",
+  "cacheNotes": "npm install ran on host. Shared npm cache may have new package entries; exact preexisting cache baseline unavailable. No browser binaries downloaded.",
+  "validation": "Baseline 15 engine tests and 1200 simulations passed after LF normalization. Original verify stopped at CRLF lint. Current source is unfinished: latest typecheck fails core.ts line176 new Set union overload; no tests run after pending fixes."
+}
